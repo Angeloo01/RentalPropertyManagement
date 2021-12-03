@@ -24,7 +24,7 @@ public class LoginGUI extends GUIWindow{
     JCheckBox showPassword = new JCheckBox("Show Password");
  
  
-    LoginGUI(int x, int y) {
+    public LoginGUI(int x, int y) {
     	super();
     	setTitle("Login");
         setVisible(true);
@@ -38,9 +38,13 @@ public class LoginGUI extends GUIWindow{
  
     }
     
-    LoginGUI(int x, int y, GUIWindow prev) {
+    public LoginGUI(int x, int y, GUIWindow prev) {
     	this(x, y);
     	this.prev = prev;
+    }
+    
+    public LoginGUI(GUIWindow prev) {
+    	this(360, 600, prev);
     }
     
  
@@ -135,13 +139,6 @@ public class LoginGUI extends GUIWindow{
         }
     }
     
-    public static void main(String[] a) {
-        //LoginGUI frame = new LoginGUI(360, 600);
-    	ListOfUsers users = ListOfUsers.getInstance();
-    	users.add(new User("admin", "admin", 0));
-    	users.add(new User("user", "user", 2));
-        new LoginController(new LoginGUI(360, 600));
-        
-    }
+    
 
 }
