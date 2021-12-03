@@ -15,7 +15,7 @@ public class ViewPropertiesGUI extends GUIWindow{
 	
 	
 	//view
-	Container container = getContentPane();
+	//Container container = getContentPane();
 	JTable table = new JTable();
 	JButton selectButton = new JButton("Select Property");
 
@@ -101,10 +101,16 @@ public class ViewPropertiesGUI extends GUIWindow{
 			}
 		}
 		else if(e.getSource() == previousButton) {
-			 LoginGUI frame = new LoginGUI(360, 600);
-		     LoginController controller = new LoginController(frame);
-		     frame.setController(controller);
-		     dispose();
+			if(prev == null) {
+				LoginGUI frame = new LoginGUI(360, 600);
+			    LoginController controller = new LoginController(frame);
+			    frame.setController(controller);
+			    dispose();
+			}
+			else {
+				prev.setVisible(true);
+				dispose();
+			}
 		}
 		
 	}

@@ -7,6 +7,7 @@ import GUI.ViewPropertiesGUI;
 public class ViewPropertiesController implements GUIController{
 	GUIWindow view;
 	PropertiesModel model;
+	
 	public ViewPropertiesController(GUIWindow gui, PropertiesModel model) {
 		view = gui;
 		view.setController(this);

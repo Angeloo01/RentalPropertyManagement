@@ -84,22 +84,23 @@ public class LoginGUI extends GUIWindow{
         registerButton.addActionListener(this);
         showPassword.addActionListener(this);
         guestButton.addActionListener(this);
-        
+        passwordField.addActionListener(this);
     }
  
  
     @Override
     public void actionPerformed(ActionEvent e) {
         //Coding Part of Login button
-        if (e.getSource() == loginButton) {
+        if (e.getSource() == loginButton || e.getSource() == passwordField) {
             String userText;
             char[] pwdText;
             userText = userTextField.getText();
             pwdText = passwordField.getPassword();
             
             if (((LoginController)controller).checkCredentials(userText, pwdText) == 2) {
-            	PropertiesModel pModel = new PropertiesModel();
-            	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
+            	//PropertiesModel pModel = new PropertiesModel();
+            	//new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
+            	RegisteredRenterGUI renterGUI = new RegisteredRenterGUI(null, new User(userText, null, 2));
             	dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
@@ -134,7 +135,7 @@ public class LoginGUI extends GUIWindow{
         if(e.getSource() == guestButton) {
         	//ViewPropertiesGUI frame = ;
         	PropertiesModel pModel = new PropertiesModel();
-        	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
+        	new ViewPropertiesController (new ViewPropertiesGUI(null), pModel);
         	dispose();
         }
     }
