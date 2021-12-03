@@ -1,6 +1,9 @@
+package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import Controller.GUIController;
 public abstract class GUIWindow extends JFrame implements ActionListener{
 
 	/**
@@ -15,7 +18,7 @@ public abstract class GUIWindow extends JFrame implements ActionListener{
 	public abstract void addComponentsToContainer();
 	public abstract void addActionEvent();
 	
-	void setController (GUIController controller) {
+	public void setController (GUIController controller) {
     	this.controller = controller;
     }
 	

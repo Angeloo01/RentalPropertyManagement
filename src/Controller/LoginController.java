@@ -1,9 +1,11 @@
-import java.util.Arrays;
+package Controller;
 
+import java.util.Arrays;
 import javax.swing.*;
 
 import Entity.ListOfUsers;
 import Entity.User;
+import GUI.GUIWindow;
 
 public class LoginController implements GUIController{
 	GUIWindow view;

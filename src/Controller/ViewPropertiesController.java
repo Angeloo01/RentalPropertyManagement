@@ -1,4 +1,8 @@
+package Controller;
+
 import Entity.PropertiesModel;
+import GUI.GUIWindow;
+import GUI.ViewPropertiesGUI;
 
 public class ViewPropertiesController implements GUIController{
 	GUIWindow view;

@@ -1,7 +1,11 @@
+package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
+
+import Controller.LoginController;
+import Controller.ViewPropertiesController;
 
 public class ViewPropertiesGUI extends GUIWindow{
 	/**

@@ -1,6 +1,9 @@
+package GUI;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+import Controller.LoginController;
+import Controller.ViewPropertiesController;
 import Entity.ListOfUsers;
 import Entity.PropertiesModel;
 import Entity.User;
