@@ -4,6 +4,7 @@ import Controller.LoginController;
 import Entity.ListOfUsers;
 import Entity.User;
 import GUI.LoginGUI;
+import Database.DatabaseConnectivity;
 
 public class Main {
 
@@ -11,12 +12,20 @@ public class Main {
 		// TODO Auto-generated constructor stub
 	}
 	public static void main(String[] args) {
+		//args should be: {<MySQL username>, <MySQL password>}
+		if (args.length != 2) {
+			System.err.println("Error: Must include 2 command-line arguments to initialize database connection");
+			System.exit(1);
+		}
+		//intialize database connection
+		DatabaseConnectivity dbc = new DatabaseConnectivity(args[0], args[1]);
         //LoginGUI frame = new LoginGUI(360, 600);
     	ListOfUsers users = ListOfUsers.getInstance();
     	users.add(new User("admin", "admin", 0));
     	users.add(new User("user", "user", 2));
     	SwingUtilities.invokeLater(new Runnable() {
     		public void run() {
+				System.out.println("test");
     			LoginGUI login = new LoginGUI(null);
     			new LoginController(login);
     			login.getContentPane().repaint();
