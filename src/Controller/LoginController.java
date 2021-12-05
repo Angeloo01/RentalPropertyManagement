@@ -3,6 +3,7 @@ package Controller;
 import java.util.Arrays;
 import javax.swing.*;
 
+import Database.DatabaseConnectivity;
 import Entity.ListOfUsers;
 import Entity.User;
 import GUI.GUIWindow;
@@ -17,6 +18,7 @@ public class LoginController implements GUIController{
 	}
 	
 	public int checkCredentials(String username, char[] password) {
+		DatabaseConnectivity.updateListOfUsers();
 		for(User user : model.getUsers()) {
 			if (username.equalsIgnoreCase(user.getUsername()) && Arrays.equals(user.getPassword().toCharArray(), password)) {
 	            return user.getType();
@@ -34,9 +36,16 @@ public class LoginController implements GUIController{
 		
 
         Object[] options = {"Renter", "Landlord"};
-        Object selectionObject = JOptionPane.showInputDialog(null, "Please choose your use case", "Menu", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-		model.getUsers().add(new User(username, new String(password), selectionObject.toString().equals("Renter") ? 2 : 1));
+        Object selectionObject = JOptionPane.showInputDialog(view, "Please choose your use case", "Menu", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        
+        String email = new String();
+        while(!email.contains("@"))
+        	email = JOptionPane.showInputDialog(view, "Enter your email:").toString();
+        
+        User newUser = new User(username, new String(password), email, selectionObject.toString().equals("Renter") ? 2 : 1);
+        if(!DatabaseConnectivity.addUser(newUser))
+        	return false;
+		//model.getUsers().add(newUser);
 		return true;
 	}
 

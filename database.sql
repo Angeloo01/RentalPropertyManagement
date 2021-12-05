@@ -4,12 +4,11 @@ USE RENTAL_MANAGEMENT;
 
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (
-	UserID			int not null auto_increment,
 	Username		varchar(25) not null,
 	Password		varchar(25) not null,
     Email			varchar(25) default null,
     Type			int not null,
-	primary key (UserID)
+	primary key (Username)
 );
 
 DROP TABLE IF EXISTS PROPERTY;
@@ -19,46 +18,58 @@ CREATE TABLE PROPERTY (
 	Bedrooms		int default 0,
     Bathrooms		int default 0,
     Quadrant		varchar(25) default 'NW',
-    LandlordID		int not null,
+    Landlord		varchar(25) not null,
 	primary key (PropertyID),
-    foreign key (LandlordID) references USERS(UserID)
+    foreign key (Landlord) references USERS(Username)
 );
 
 #for every USER and PROPERTY pair, there is a row in this table
 DROP TABLE IF EXISTS INBOX;
 CREATE TABLE INBOX (
-	UserID		int not null,
+	Username		varchar(25) not null,
     PropertyID 	int not null,
-    primary key (UserID, PropertyID),
-    foreign key (UserID) references USERS(UserID),
+    primary key (Username, PropertyID),
+    foreign key (Username) references USERS(Username),
     foreign key (PropertyID) references PROPERTY(PropertyID)
 );
 
 
 DROP TABLE IF EXISTS MAIL;
 CREATE TABLE MAIL (
-	SenderID	int not null,
-    ReceiverID 	int not null,
+	Sender	varchar(25) not null,
+    Receiver 	varchar(25) not null,
     Message		varchar(300),
-    primary key (SenderID, ReceiverID),
-    foreign key (SenderID) references USERS(UserID),
-    foreign key (ReceiverID) references USERS(UserID)
+    primary key (Sender, Receiver),
+    foreign key (Sender) references USERS(Username),
+    foreign key (Receiver) references USERS(Username)
 );
+
+DROP TABLE IF EXISTS INT_VARIABLES;
+CREATE TABLE INT_VARIABLES (
+	Name	varchar(25) not null,
+    Value	int not null,
+    primary key (Name)
+);
+
+INSERT INTO INT_VARIABLES(Name, Value)
+VALUES
+('FeeAmount', 0),
+('FeePeriod', 0);
 
 /*testing inserts
 #Insert admin, test user, test landlord into user table
-INSERT INTO USERS (UserID, Type, Username, Password, Email)
+INSERT INTO USERS (Type, Username, Password, Email)
 VALUES
-(1,	0,	'admin',	'admin', null),
-(2,	2,	'user',	'user', 'user@email.com'),
-(3,	1,	'landlord',	'landlord', 'landlord@email.com');
+(0,	'admin',	'admin', null),
+(2,	'user',	'user', 'user@email.com'),
+(1,	'landlord',	'landlord', 'landlord@email.com');
 
-INSERT INTO PROPERTY (LandlordID)
+INSERT INTO PROPERTY (Landlord)
 VALUES
-(3);
+('landlord');
 
-INSERT INTO INBOX (UserID, PropertyID)
+INSERT INTO INBOX (Username, PropertyID)
 VALUES
-(2, 1);
+('user', 1);
 */
     

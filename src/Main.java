@@ -18,14 +18,15 @@ public class Main {
 			System.exit(1);
 		}
 		//intialize database connection
-		DatabaseConnectivity dbc = new DatabaseConnectivity(args[0], args[1]);
-        //LoginGUI frame = new LoginGUI(360, 600);
-    	ListOfUsers users = ListOfUsers.getInstance();
-    	users.add(new User("admin", "admin", 0));
-    	users.add(new User("user", "user", 2));
+		//DatabaseConnectivity dbc = new DatabaseConnectivity(args[0], args[1]);
+		DatabaseConnectivity.initializeConnection(args[0], args[1]);
+        
+    	//ListOfUsers users = ListOfUsers.getInstance();
+    	DatabaseConnectivity.addUser(new User("admin", "admin", 0));
+    	DatabaseConnectivity.addUser(new User("user", "user", 2));
     	SwingUtilities.invokeLater(new Runnable() {
     		public void run() {
-				System.out.println("test");
+				
     			LoginGUI login = new LoginGUI(null);
     			new LoginController(login);
     			login.getContentPane().repaint();

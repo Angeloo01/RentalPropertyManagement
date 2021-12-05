@@ -4,6 +4,7 @@ public class User {
 	
 	String username;
 	String password;
+	String email;
 	int type; //0: manager 1: landlord 2: renter
 	public User(String username, String password, int type) {
 		super();
@@ -11,6 +12,15 @@ public class User {
 		this.password = password;
 		this.type = type;
 	}
+	
+	public User(String username, String password, String email, int type) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.type = type;
+		this.email = email;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -29,6 +39,15 @@ public class User {
 	public void setType(int type) {
 		this.type = type;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
 	
 	

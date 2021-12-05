@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 import Controller.LoginController;
+import Controller.ManagerGUIController;
 import Controller.ViewPropertiesController;
 import Entity.ListOfUsers;
 import Entity.PropertiesModel;
@@ -97,9 +98,13 @@ public class LoginGUI extends GUIWindow{
             userText = userTextField.getText();
             pwdText = passwordField.getPassword();
             
-            if (((LoginController)controller).checkCredentials(userText, pwdText) == 2) {
-            	//PropertiesModel pModel = new PropertiesModel();
-            	//new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
+            int type = ((LoginController)controller).checkCredentials(userText, pwdText);
+            if(type == 0) {
+            	new ManagerGUIController(new ManagerGUI(null));
+            	dispose();
+            }
+            else if (type == 2) {
+            	
             	RegisteredRenterGUI renterGUI = new RegisteredRenterGUI(null, new User(userText, null, 2));
             	dispose();
             } else {
@@ -133,7 +138,6 @@ public class LoginGUI extends GUIWindow{
         }
         
         if(e.getSource() == guestButton) {
-        	//ViewPropertiesGUI frame = ;
         	PropertiesModel pModel = new PropertiesModel();
         	new ViewPropertiesController (new ViewPropertiesGUI(null), pModel);
         	dispose();

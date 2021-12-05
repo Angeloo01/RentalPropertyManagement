@@ -1,13 +1,12 @@
 package GUI;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
-import Entity.ListOfUsers;
-import Entity.User;
+import Controller.LoginController;
+import Controller.ManagerGUIController;
 
 public class ManagerGUI extends GUIWindow {
 
@@ -50,7 +49,47 @@ public class ManagerGUI extends GUIWindow {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() == feeButton) {
+			String fee = feeChargeTF.getText();
+            String period = feePeriodTF.getText();
+            if(fee.isEmpty() || period.isEmpty()) {
+        		JOptionPane.showMessageDialog(this, "Invalid fee or period");
+        		return;
+        	}
+            else {
+            	float feeF;
+            	int periodI;
+	            try {
+	            	feeF = (Float.parseFloat(fee));
+	            	periodI = (Integer.parseInt(period));
+	            }
+	            catch(Exception ex) {
+	            	JOptionPane.showMessageDialog(this, "Invalid fee or period");
+	            	return;
+	            }
+	            ((ManagerGUIController)controller).setFeeAmount(feeF);
+	            ((ManagerGUIController)controller).setFeePeriod(periodI);
+	            JOptionPane.showMessageDialog(this, "New fee has been set");
+            }
+		}
+		else if(e.getSource() == summButton) {
+			((ManagerGUIController)controller).getSummaryReport();
+		}
+		else if(e.getSource() == dbButton) {
+			((ManagerGUIController)controller).getSummaryReport();
+		}
+		else if(e.getSource() == previousButton) {
+			if(prev == null) {
+				LoginGUI frame = new LoginGUI(360, 600);
+			    LoginController controller = new LoginController(frame);
+			    frame.setController(controller);
+			    dispose();
+			}
+			else {
+				prev.setVisible(true);
+				dispose();
+			}
+		}
 
 	}
 
@@ -67,12 +106,14 @@ public class ManagerGUI extends GUIWindow {
     	JPanel buttonPanel1 = new JPanel(new FlowLayout());
     	JPanel buttonPanel2 = new JPanel(new FlowLayout());
     	JPanel buttonPanel3 = new JPanel(new FlowLayout());
+    	JPanel buttonPanel4 = new JPanel(new FlowLayout());
     	
     	feePanel1.setMaximumSize(panelSize);
     	feePanel2.setMaximumSize(panelSize);
     	buttonPanel1.setMaximumSize(panelSize);
     	buttonPanel2.setMaximumSize(panelSize);
     	buttonPanel3.setMaximumSize(panelSize);
+    	buttonPanel4.setMaximumSize(panelSize);
     	
     	mainPanel.add(Box.createVerticalStrut(25));
     	
@@ -99,28 +140,33 @@ public class ManagerGUI extends GUIWindow {
     	buttonPanel3.add(dbButton);
     	mainPanel.add(buttonPanel3);
     	
-
+    	mainPanel.add(Box.createVerticalStrut(10));
+    	buttonPanel4.add(previousButton);
+    	mainPanel.add(buttonPanel4);
     	
 
 	}
 
 	@Override
 	public void addActionEvent() {
-		// TODO Auto-generated method stub
+		feeButton.addActionListener(this);
+		summButton.addActionListener(this);
+		dbButton.addActionListener(this);
+		previousButton.addActionListener(this);
 
 	}
 	
-	public static void main(String[] args) {
-        //LoginGUI frame = new LoginGUI(360, 600);
-    	ListOfUsers users = ListOfUsers.getInstance();
-    	users.add(new User("admin", "admin", 0));
-    	users.add(new User("user", "user", 2));
-    	SwingUtilities.invokeLater(new Runnable() {
-    		public void run() {
-    			ManagerGUI login = new ManagerGUI(null);
-    		}
-    	});
-        
-    }
+//	public static void main(String[] args) {
+//        //LoginGUI frame = new LoginGUI(360, 600);
+//    	ListOfUsers users = ListOfUsers.getInstance();
+//    	users.add(new User("admin", "admin", 0));
+//    	users.add(new User("user", "user", 2));
+//    	SwingUtilities.invokeLater(new Runnable() {
+//    		public void run() {
+//    			ManagerGUI login = new ManagerGUI(null);
+//    		}
+//    	});
+//        
+//    }
 
 }
