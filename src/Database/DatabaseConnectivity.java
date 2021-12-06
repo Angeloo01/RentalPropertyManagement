@@ -1,8 +1,7 @@
 package Database;
 import java.sql.*;
 
-import Entity.ListOfUsers;
-import Entity.User;
+import Entity.*;;
 
 public class DatabaseConnectivity {
     //Data to create MySQL connection:
@@ -33,6 +32,11 @@ public class DatabaseConnectivity {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+    
+    public static void updateAllEntities() {
+    	updateListOfUsers();
+    	updateFeeModel();
     }
     
     public static void updateListOfUsers() {
@@ -96,6 +100,67 @@ public class DatabaseConnectivity {
 			}
 		} catch (SQLException e) {
 			System.err.println("Error adding user to DB");
+			return false;
+		}
+    }
+    
+    public static void updateFeeModel() {
+    	Statement stm = null;
+    	ResultSet results = null;
+		try {
+			stm = databaseConnection.createStatement();
+			
+			FeeModel fee = FeeModel.getInstance();
+			
+			results = stm.executeQuery("SELECT * FROM int_variables WHERE Name = 'feeamount'");
+			if(results.next())
+				fee.setAmount(results.getInt("value"));
+			results.close();
+			
+			results = stm.executeQuery("SELECT * FROM int_variables WHERE Name = 'feeperiod'");
+			if(results.next())
+				fee.setPeriod(results.getInt("value"));
+			results.close();
+			
+			stm.close();
+			
+		} catch (SQLException e) {
+			System.err.println("Error selecting from INT_VARIABLES");
+			e.printStackTrace();
+		}
+		finally {
+			if(results != null)
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(stm != null)
+				try {
+					stm.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+    }
+    
+    public static boolean changeFee() {
+    	try {
+			Statement stm = databaseConnection.createStatement();
+			FeeModel fee = FeeModel.getInstance();
+			
+			if(stm.executeUpdate("UPDATE int_variables SET value = "+fee.getAmount()+" WHERE name = 'feeamount'") <= 0)
+				return false;
+			if(stm.executeUpdate("UPDATE int_variables SET value = "+fee.getPeriod()+" WHERE name = 'feePeriod'") <= 0)
+				return false;
+			stm.close();
+			
+			DatabaseConnectivity.updateFeeModel();
+			return true;
+			
+		} catch (SQLException e) {
+			System.err.println("Error changing Fee in DB");
+			e.printStackTrace();
 			return false;
 		}
     }

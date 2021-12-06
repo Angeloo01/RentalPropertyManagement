@@ -57,19 +57,20 @@ public class ManagerGUI extends GUIWindow {
         		return;
         	}
             else {
-            	float feeF;
+            	int feeF;
             	int periodI;
 	            try {
-	            	feeF = (Float.parseFloat(fee));
+	            	feeF = (Integer.parseInt(fee));
 	            	periodI = (Integer.parseInt(period));
 	            }
 	            catch(Exception ex) {
 	            	JOptionPane.showMessageDialog(this, "Invalid fee or period");
 	            	return;
 	            }
-	            ((ManagerGUIController)controller).setFeeAmount(feeF);
-	            ((ManagerGUIController)controller).setFeePeriod(periodI);
-	            JOptionPane.showMessageDialog(this, "New fee has been set");
+	            if(((ManagerGUIController)controller).setFee(feeF, periodI))
+	            	JOptionPane.showMessageDialog(this, "New fee has been set");
+	            else
+	            	JOptionPane.showMessageDialog(this, "Error in setting fee");
             }
 		}
 		else if(e.getSource() == summButton) {
@@ -154,6 +155,11 @@ public class ManagerGUI extends GUIWindow {
 		dbButton.addActionListener(this);
 		previousButton.addActionListener(this);
 
+	}
+	
+	public void showFee(int amount, int period) {
+		feeChargeTF.setText(String.valueOf(amount));
+		feePeriodTF.setText(String.valueOf(period));
 	}
 	
 //	public static void main(String[] args) {

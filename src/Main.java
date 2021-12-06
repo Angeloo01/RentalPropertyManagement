@@ -1,7 +1,6 @@
 import javax.swing.SwingUtilities;
 
 import Controller.LoginController;
-import Entity.ListOfUsers;
 import Entity.User;
 import GUI.LoginGUI;
 import Database.DatabaseConnectivity;
@@ -24,6 +23,7 @@ public class Main {
     	//ListOfUsers users = ListOfUsers.getInstance();
     	DatabaseConnectivity.addUser(new User("admin", "admin", 0));
     	DatabaseConnectivity.addUser(new User("user", "user", 2));
+    	DatabaseConnectivity.updateAllEntities();
     	SwingUtilities.invokeLater(new Runnable() {
     		public void run() {
 				
