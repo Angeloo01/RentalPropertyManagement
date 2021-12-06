@@ -14,11 +14,12 @@ CREATE TABLE USERS (
 DROP TABLE IF EXISTS PROPERTY;
 CREATE TABLE PROPERTY (
 	PropertyID		int NOT NULL auto_increment,
-	Type			varchar(25) default 'House',
-	Bedrooms		int default 0,
-    Bathrooms		int default 0,
-    Quadrant		varchar(25) default 'NW',
+	Type			varchar(25) not null default 'House',
+	Bedrooms		int not null default 0,
+    Bathrooms		int not null default 0,
+    Quadrant		varchar(25) not null default 'NW',
     Landlord		varchar(25) not null,
+    Status 			varchar(25) not null default 'registered',# registered, active, rented, cancelled, suspended
 	primary key (PropertyID),
     foreign key (Landlord) references USERS(Username)
 );
@@ -36,10 +37,11 @@ CREATE TABLE INBOX (
 
 DROP TABLE IF EXISTS MAIL;
 CREATE TABLE MAIL (
+	MailID	int not null auto_increment,
 	Sender	varchar(25) not null,
     Receiver 	varchar(25) not null,
     Message		varchar(300),
-    primary key (Sender, Receiver),
+    primary key (MailID),
     foreign key (Sender) references USERS(Username),
     foreign key (Receiver) references USERS(Username)
 );

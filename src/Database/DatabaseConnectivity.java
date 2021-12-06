@@ -164,4 +164,32 @@ public class DatabaseConnectivity {
 			return false;
 		}
     }
+    
+    public static boolean sendMail(String message, User sender, User receiver) {
+    	String query = "INSERT INTO mail (sender, receiver, message) VALUES (?,?,?)";
+    	try {
+			PreparedStatement stm = databaseConnection.prepareStatement(query);
+			
+			stm.setString(1, sender.getUsername());
+			System.out.println(sender.getUsername());
+			System.out.println(receiver.getUsername());
+			stm.setString(2, receiver.getUsername());
+			stm.setString(3, message);
+			
+			int rowCount = stm.executeUpdate();
+			stm.close();
+			
+			DatabaseConnectivity.updateListOfUsers();
+			if(rowCount > 0) {			
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Error sending mail to DB");
+			return false;
+		}
+    }
 }
