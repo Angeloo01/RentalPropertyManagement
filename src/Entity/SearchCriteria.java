@@ -17,4 +17,8 @@ public class SearchCriteria {
         //return whether or not all search criteria fields match the property fields
         return false;
     }
+
+    public String toString() {
+        return type + " " + bedrooms + " " + bathrooms + " " + quadrant; 
+    }
 }

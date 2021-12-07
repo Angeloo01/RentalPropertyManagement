@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import Controller.LoginController;
 import Controller.ViewPropertiesController;
 import Entity.PropertiesModel;
-import Entity.User;
+import Entity.RegisteredRenter;
 
 public class RegisteredRenterGUI extends GUIWindow {
 
@@ -23,7 +23,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 	
 	JButton inboxButton = new JButton("Inbox");
 	JButton propertyButton = new JButton("View Properties");
-	User user;//model
+	RegisteredRenter user;//model
 	
 	public RegisteredRenterGUI(int x, int y) {
 		super();
@@ -49,12 +49,12 @@ public class RegisteredRenterGUI extends GUIWindow {
     	this.prev = prev;
     }
 	
-	public RegisteredRenterGUI(GUIWindow prev, User user) {
+	public RegisteredRenterGUI(GUIWindow prev, RegisteredRenter user) {
     	this(prev);
     	this.user = user;
     }
 
-	public void setUser(User user) {
+	public void setUser(RegisteredRenter user) {
 		this.user = user;
 	}
 

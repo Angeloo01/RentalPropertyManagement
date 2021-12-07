@@ -25,13 +25,15 @@ CREATE TABLE PROPERTY (
 );
 
 #for every USER and PROPERTY pair, there is a row in this table
-DROP TABLE IF EXISTS INBOX;
-CREATE TABLE INBOX (
-	Username		varchar(25) not null,
-    PropertyID 	int not null,
-    primary key (Username, PropertyID),
-    foreign key (Username) references USERS(Username),
-    foreign key (PropertyID) references PROPERTY(PropertyID)
+DROP TABLE IF EXISTS SEARCH_CRITERIA;
+CREATE TABLE SEARCH_CRITERIA (
+	Username    varchar(25) not null,
+    Type			varchar(25) not null default 'House',
+	Bedrooms		int not null default 0,
+    Bathrooms		int not null default 0,
+    Quadrant		varchar(25) not null default 'NW',
+    primary key (Username, Type, Bedrooms, Bathrooms, Quadrant),
+    foreign key (Username) references USERS(Username)
 );
 
 

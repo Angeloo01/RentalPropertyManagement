@@ -1,5 +1,6 @@
 package Database;
 import java.sql.*;
+import java.util.ArrayList;
 
 import Entity.*;;
 
@@ -191,5 +192,21 @@ public class DatabaseConnectivity {
 			System.err.println("Error sending mail to DB");
 			return false;
 		}
+    }
+
+    public static ArrayList<SearchCriteria> getUserSearchCriteria(String username) {
+        String sql = "SELECT * FROM search_criteria WHERE Username = " + username;
+        ArrayList<SearchCriteria> resultArray = new ArrayList<SearchCriteria>();
+        try {
+            Statement stmt = databaseConnection.createStatement();
+            ResultSet results = stmt.executeQuery(sql);
+            while(results.next()) {
+                resultArray.add(new SearchCriteria(results.getString(2), results.getInt(3), results.getInt(4), results.getString(5)));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving search criteria with username " + username);
+            e.printStackTrace();
+        }
+        return resultArray;
     }
 }
