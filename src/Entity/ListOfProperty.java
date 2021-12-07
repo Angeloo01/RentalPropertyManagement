@@ -7,13 +7,13 @@ private List<Property> properties;
 private static ListOfProperty singleton;
 
 
-	private ListOfUsers() {
+	private ListOfProperties() {
 		properties = new ArrayList<properties>();
 	}
 
 public static ListOfProperty getInstance(){
     if(singleton == null){
-        singleton = new ListOfProperty();
+        singleton = new ListOfProperties();
     }
     return singleton;
 }

@@ -40,6 +40,33 @@ public class ListOfUsers {
 		return users;
 	}
 	
+	public User getUser(String username) {
+		for(User user : users) {
+			if(user.getUsername().equalsIgnoreCase(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	public User getUserFromEmail(String email) {
+		for(User user : users) {
+			if(user.getEmail() == null) {
+				continue;
+			}
+			if(user.getEmail().equalsIgnoreCase(email)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	public void printList() {
+		for(User user : users) {
+			System.out.println(user.getUsername() + " " + user.getEmail());
+		}
+	}
+	
 	public boolean usernameExist(String username) {
 		for(User user: users) {
 			if(username.equalsIgnoreCase(user.getUsername())) {
