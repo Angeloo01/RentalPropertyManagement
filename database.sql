@@ -40,7 +40,7 @@ CREATE TABLE MAIL (
 	MailID	int not null auto_increment,
 	Sender	varchar(25) not null,
     Receiver 	varchar(25) not null,
-    Message		varchar(300),
+    Message		varchar(10000),
     primary key (MailID),
     foreign key (Sender) references USERS(Username),
     foreign key (Receiver) references USERS(Username)
