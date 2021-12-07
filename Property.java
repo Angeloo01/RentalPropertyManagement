@@ -9,12 +9,14 @@ public class Property{
     private String landlordName; 
     private String stateOfProperty; 
 
-public Property(String t, int nBed, int nBath, boolean f, String q){
+public Property(String t, int nBed, int nBath, boolean f, String q, String name, String state){
     type = t;
     numBaths = nBath;
     numBeds = nBed;
     furnished = f;
     quadrant = q;
+    landlordName=name;
+    stateOfProperty= state; 
 }
 
 public String getType(){
@@ -28,11 +30,21 @@ public int getNumBed(){
     return numBeds;
 }
 public boolean getFurnished(){
-    return Furnished;
+    return furnished;
 }
 
 public String getQuadrant(){
     return quadrant;
+}
+
+public String getLandlordName()
+{
+    return landlordName; 
+}
+
+public String getStateOfProperty()
+{
+    return stateOfProperty; 
 }
 
 }
