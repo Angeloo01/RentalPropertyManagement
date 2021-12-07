@@ -22,7 +22,8 @@ public class Main {
         
     	//ListOfUsers users = ListOfUsers.getInstance();
     	DatabaseConnectivity.addUser(new User("admin", "admin", 0));
-    	DatabaseConnectivity.addUser(new User("user", "user", 2));
+    	DatabaseConnectivity.addUser(new User("user", "user", "user@email.ca", 2));
+    	DatabaseConnectivity.addUser(new User("landlord", "landlord", "landlord@email.ca", 1));
     	DatabaseConnectivity.updateAllEntities();
     	SwingUtilities.invokeLater(new Runnable() {
     		public void run() {

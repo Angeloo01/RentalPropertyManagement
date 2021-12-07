@@ -103,9 +103,14 @@ public class LoginGUI extends GUIWindow{
             	new ManagerGUIController(new ManagerGUI(null));
             	dispose();
             }
+            else if (type == 1) {
+            	
+            	LandlordGUI landlordGUI = new LandlordGUI(null, ListOfUsers.getInstance().getUser(userText));
+            	dispose();
+            } 
             else if (type == 2) {
             	
-            	RegisteredRenterGUI renterGUI = new RegisteredRenterGUI(null, new User(userText, null, 2));
+            	RegisteredRenterGUI renterGUI = new RegisteredRenterGUI(null, ListOfUsers.getInstance().getUser(userText));
             	dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
