@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Controller.LoginController;
+import Controller.MailInboxController;
 import Controller.ViewPropertiesController;
 import Entity.PropertiesModel;
 import Entity.User;
@@ -23,6 +24,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 	
 	JButton inboxButton = new JButton("Inbox");
 	JButton propertyButton = new JButton("View Properties");
+	JButton mailButton = new JButton("Email");
 	User user;//model
 	
 	public RegisteredRenterGUI(int x, int y) {
@@ -65,6 +67,10 @@ public class RegisteredRenterGUI extends GUIWindow {
 	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
 	    	setVisible(false);
 		}
+		else if(e.getSource() == mailButton) {
+			new MailInboxController(new MailInboxGUI(this), user);
+			setVisible(false);
+		}
 		else if(e.getSource() == inboxButton) {
 			PropertiesModel pModel = new PropertiesModel();
 			pModel.getData()[0][0] = "House";
@@ -92,18 +98,22 @@ public class RegisteredRenterGUI extends GUIWindow {
 		FlowLayout fl = new FlowLayout();
 		Dimension dm = new Dimension(getWidth(), 50);
 		
-		JPanel row1 = new JPanel(fl), row2 = new JPanel(fl), row3 = new JPanel(fl);
+		JPanel row1 = new JPanel(fl), row2 = new JPanel(fl), row3 = new JPanel(fl), row4 = new JPanel(fl);
 		row1.setMaximumSize(dm);
 		row2.setMaximumSize(dm);
 		row3.setMaximumSize(dm);
+		row4.setMaximumSize(dm);
 		
 		row1.add(inboxButton);
 		row2.add(propertyButton);
 		row3.add(previousButton);
+		row4.add(mailButton);
 		
 		container.add(row1);
 		container.add(row2);
+		container.add(row4);
 		container.add(row3);
+		
 		
 	}
 
@@ -112,7 +122,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 		inboxButton.addActionListener(this);
 		propertyButton.addActionListener(this);
 		previousButton.addActionListener(this);
-
+		mailButton.addActionListener(this);
 	}
 	
 	public void setContainer() {

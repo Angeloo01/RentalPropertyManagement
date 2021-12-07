@@ -1,5 +1,6 @@
 package Database;
 import java.sql.*;
+import java.util.LinkedList;
 
 import Entity.*;;
 
@@ -190,6 +191,29 @@ public class DatabaseConnectivity {
 			e.printStackTrace();
 			System.err.println("Error sending mail to DB");
 			return false;
+		}
+    }
+    
+    public static String[] retrieveMail(User receiver) {
+    	String query = "SELECT message FROM mail WHERE receiver = ?";
+    	try {
+			PreparedStatement stm = databaseConnection.prepareStatement(query);
+			stm.setString(1, receiver.getUsername());
+
+			ResultSet results = stm.executeQuery();
+			
+			
+			LinkedList<String> list = new LinkedList<String>();
+			while(results.next()) {
+				list.add(results.getString("message"));
+			}
+			results.close();
+			stm.close();
+			return list.toArray(new String[list.size()]);
+		} catch (SQLException e) {
+			System.err.println("Error retrieving mail from DB");
+			e.printStackTrace();
+			return null;
 		}
     }
 }
