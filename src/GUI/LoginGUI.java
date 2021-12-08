@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import Controller.LoginController;
 import Controller.ManagerGUIController;
+import Controller.RegisteredRenterController;
 import Controller.ViewPropertiesController;
 import Entity.ListOfUsers;
 import Entity.PropertiesModel;
@@ -110,7 +111,7 @@ public class LoginGUI extends GUIWindow{
             } 
             else if (type == 2) {
             	
-            	RegisteredRenterGUI renterGUI = new RegisteredRenterGUI(null, ListOfUsers.getInstance().getUser(userText));
+                new RegisteredRenterController(null, ListOfUsers.getInstance().getUser(userText));
             	dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
