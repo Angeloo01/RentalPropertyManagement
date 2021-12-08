@@ -8,10 +8,10 @@ public class MailController implements GUIController{
 
 	GUIWindow view;
 	User sender, receiver;
-	public MailController(GUIWindow gui) {
-		view = gui;
-		view.setController(this);
-	}
+//	private MailController(GUIWindow gui) {
+//		view = gui;
+//		view.setController(this);
+//	}
 	
 	public MailController(GUIWindow gui, User sender, User receiver) {
 		view = gui;

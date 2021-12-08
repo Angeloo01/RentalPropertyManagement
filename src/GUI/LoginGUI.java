@@ -143,9 +143,17 @@ public class LoginGUI extends GUIWindow{
         }
         
         if(e.getSource() == guestButton) {
-        	PropertiesModel pModel = new PropertiesModel();
+//        	String email = new String();
+//            while(!email.contains("@"))
+//            	email = JOptionPane.showInputDialog(this, "Enter your email:").toString();
+//            if (ListOfUsers.getInstance().getUserFromEmail(email) != null) {
+//				JOptionPane.showMessageDialog(this, "Email is taken");
+//	            return;
+//	        }
+        	PropertiesModel pModel = new PropertiesModel(true);
         	new ViewPropertiesController (new ViewPropertiesGUI(null), pModel);
         	dispose();
+        	
         }
     }
     

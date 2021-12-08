@@ -21,6 +21,16 @@ public Property(int i, String t, int nBed, int nBath, boolean f, String q, Strin
     stateOfProperty= state; 
 }
 
+public Property(String t, int nBed, int nBath, boolean f, String q, String name, String state){
+    type = t;
+    numBaths = nBath;
+    numBeds = nBed;
+    furnished = f;
+    quadrant = q;
+    landlordName=name;
+    stateOfProperty= state; 
+}
+
 public int getID() {
 	return id;
 }

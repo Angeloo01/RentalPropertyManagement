@@ -5,7 +5,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import Controller.LoginController;
+import Controller.MailController;
 import Controller.ViewPropertiesController;
+import Entity.User;
 
 public class ViewPropertiesGUI extends GUIWindow{
 	/**
@@ -130,7 +132,14 @@ public class ViewPropertiesGUI extends GUIWindow{
 		if(e.getSource() == selectButton) {
 			int rowIn;
 			if((rowIn = table.getSelectedRow()) >= 0) {
-				((ViewPropertiesController)controller).selectProperty(rowIn);
+				User landlord = ((ViewPropertiesController)controller).getLandlord(rowIn), user = ((ViewPropertiesController)controller).getUser();
+				if(user == null) {
+					JOptionPane.showMessageDialog(this, "Please Register to Contact Property Owner");
+				}
+				else {
+					MailController mCon = new MailController(new MailGUI(this), user, landlord);
+					setVisible(false);
+				}
 			}
 		}
 		else if(e.getSource() == previousButton) {

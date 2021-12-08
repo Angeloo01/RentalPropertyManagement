@@ -1,6 +1,7 @@
 package Database;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import Entity.*;;
 
@@ -194,6 +195,30 @@ public class DatabaseConnectivity {
 			return false;
 		}
     }
+    
+    public static String[] retrieveMail(User receiver) {
+    	String query = "SELECT message FROM mail WHERE receiver = ?";
+    	try {
+			PreparedStatement stm = databaseConnection.prepareStatement(query);
+			stm.setString(1, receiver.getUsername());
+
+			ResultSet results = stm.executeQuery();
+			
+			
+			LinkedList<String> list = new LinkedList<String>();
+			while(results.next()) {
+				list.add(results.getString("message"));
+			}
+			results.close();
+			stm.close();
+			return list.toArray(new String[list.size()]);
+		} catch (SQLException e) {
+			System.err.println("Error retrieving mail from DB");
+			e.printStackTrace();
+			return null;
+		}
+    }
+
 
     public static ArrayList<SearchCriteria> getUserSearchCriteria(String username) {
         String sql = "SELECT * FROM search_criteria WHERE Username = " + username;
@@ -210,19 +235,20 @@ public class DatabaseConnectivity {
         }
         return resultArray;
     }
+    
 //int i, String t, int nBed, int nBath, boolean f, String q, String name, String state
     public static boolean addProperty(Property property) {
-        String query = "INSERT INTO property (propertyid, type, bedrooms, bathrooms,furnished, quadrant, landlord, status) VALUES (?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO property (type, bedrooms, bathrooms,furnished, quadrant, landlord, status) VALUES (?,?,?,?,?,?,?)";
     	try {
 			PreparedStatement stm = databaseConnection.prepareStatement(query);
-			stm.setInt(1, property.getID());
-			stm.setString(2, property.getType());
-            stm.setInt(3, property.getNumBed());
-			stm.setInt(4, property.getNumBath());
-            stm.setBoolean(5, property.getFurnished());
-            stm.setString(6, property.getQuadrant());
-            stm.setString(7, property.getLandlordName());
-            stm.setString(8, property.getStateOfProperty());
+			//stm.setInt(1, property.getID());
+			stm.setString(1, property.getType());
+            stm.setInt(2, property.getNumBed());
+			stm.setInt(3, property.getNumBath());
+            stm.setBoolean(4, property.getFurnished());
+            stm.setString(5, property.getQuadrant());
+            stm.setString(6, property.getLandlordName());
+            stm.setString(7, property.getStateOfProperty());
 
 			int rowCount = stm.executeUpdate();
 			stm.close();
@@ -255,14 +281,14 @@ public class DatabaseConnectivity {
 					continue;
 				}
 				//else
-				int propertyid = results.getString("propertyid");
+				int propertyid = results.getInt("propertyid");
 				String type = results.getString("type");
-				int bedrooms = results.getString("bedrooms");
+				int bedrooms = results.getInt("bedrooms");
 				int bathrooms = results.getInt("bathrooms");
-                int furnished = results.getInt("furnished");
-                int quadrant = results.getInt("quadrant");
-                int landlord = results.getInt("landlord");
-                int status = results.getInt("status");
+                boolean furnished = results.getBoolean("furnished");
+                String quadrant = results.getString("quadrant");
+                String landlord = results.getString("landlord");
+                String status = results.getString("status");
 				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status));
 			}
 			

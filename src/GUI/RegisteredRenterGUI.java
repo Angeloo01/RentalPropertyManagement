@@ -63,8 +63,8 @@ public class RegisteredRenterGUI extends GUIWindow {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == propertyButton) {
-			PropertiesModel pModel = new PropertiesModel();
-	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
+			PropertiesModel pModel = new PropertiesModel(true);
+	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel, user);
 	    	setVisible(false);
 		}
 		else if(e.getSource() == mailButton) {
@@ -72,9 +72,9 @@ public class RegisteredRenterGUI extends GUIWindow {
 			setVisible(false);
 		}
 		else if(e.getSource() == inboxButton) {
-			PropertiesModel pModel = new PropertiesModel();
+			PropertiesModel pModel = new PropertiesModel(true);
 			pModel.getData()[0][0] = "House";
-	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel);
+	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel, user);
 	    	setVisible(false);
 		}
     	
