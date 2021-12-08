@@ -128,7 +128,7 @@ public class LoginGUI extends GUIWindow{
                 JOptionPane.showMessageDialog(this, "Registration Successful");
             }
         	else {
-                JOptionPane.showMessageDialog(this, "Username is taken");
+                //JOptionPane.showMessageDialog(this, "Username is taken");
             }
         }
        //Coding Part of showPassword JCheckBox
