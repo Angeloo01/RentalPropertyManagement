@@ -30,6 +30,7 @@ public class LoginController implements GUIController{
 	public boolean registerUser(String username, char[] password) {
 		for(User user : model.getUsers()) {
 			if (username.equalsIgnoreCase(user.getUsername())) {
+				JOptionPane.showMessageDialog(view, "Username is taken");
 	            return false;
 	        }
 		}
@@ -42,6 +43,12 @@ public class LoginController implements GUIController{
         while(!email.contains("@"))
         	email = JOptionPane.showInputDialog(view, "Enter your email:").toString();
         
+        for(User user : model.getUsers()) {
+			if (email.equalsIgnoreCase(user.getEmail())) {
+				JOptionPane.showMessageDialog(view, "Email is taken");
+	            return false;
+	        }
+		}
         User newUser = new User(username, new String(password), email, selectionObject.toString().equals("Renter") ? 2 : 1);
         if(!DatabaseConnectivity.addUser(newUser))
         	return false;

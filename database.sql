@@ -17,6 +17,7 @@ CREATE TABLE PROPERTY (
 	Type			varchar(25) not null default 'House',
 	Bedrooms		int not null default 0,
     Bathrooms		int not null default 0,
+    Furnished		bool not null default false,
     Quadrant		varchar(25) not null default 'NW',
     Landlord		varchar(25) not null,
     Status 			varchar(25) not null default 'registered',# registered, active, rented, cancelled, suspended
@@ -42,7 +43,7 @@ CREATE TABLE MAIL (
 	MailID	int not null auto_increment,
 	Sender	varchar(25) not null,
     Receiver 	varchar(25) not null,
-    Message		varchar(300),
+    Message		varchar(10000),
     primary key (MailID),
     foreign key (Sender) references USERS(Username),
     foreign key (Receiver) references USERS(Username)

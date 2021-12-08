@@ -38,6 +38,7 @@ public class DatabaseConnectivity {
     public static void updateAllEntities() {
     	updateListOfUsers();
     	updateFeeModel();
+        updatePropertyStatus();
     }
     
     public static void updateListOfUsers() {
@@ -209,4 +210,82 @@ public class DatabaseConnectivity {
         }
         return resultArray;
     }
+//int i, String t, int nBed, int nBath, boolean f, String q, String name, String state
+    public static boolean addProperty(Property property) {
+        String query = "INSERT INTO property (propertyid, type, bedrooms, bathrooms,furnished, quadrant, landlord, status) VALUES (?,?,?,?,?,?,?,?)";
+    	try {
+			PreparedStatement stm = databaseConnection.prepareStatement(query);
+			stm.setInt(1, property.getID());
+			stm.setString(2, property.getType());
+            stm.setInt(3, property.getNumBed());
+			stm.setInt(4, property.getNumBath());
+            stm.setBoolean(5, property.getFurnished());
+            stm.setString(6, property.getQuadrant());
+            stm.setString(7, property.getLandlordName());
+            stm.setString(8, property.getStateOfProperty());
+
+			int rowCount = stm.executeUpdate();
+			stm.close();
+			
+			DatabaseConnectivity.updatePropertyStatus();
+			if(rowCount > 0) {			
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error adding property to DB");
+			return false;
+		}
+
+        
+    }
+//int i, String t, int nBed, int nBath, boolean f, String q, String name, String state
+    public static void updatePropertyStatus() {
+    	Statement stm = null;
+    	ResultSet results = null;
+		try {
+			stm = databaseConnection.createStatement();
+			results = stm.executeQuery("SELECT * FROM property");
+			ListOfProperty list = ListOfProperty.getInstance();
+			while(results.next()) {
+				//property is already in list
+				if(list.propertyExist(results.getInt("propertyid"))) {
+					continue;
+				}
+				//else
+				int propertyid = results.getString("propertyid");
+				String type = results.getString("type");
+				int bedrooms = results.getString("bedrooms");
+				int bathrooms = results.getInt("bathrooms");
+                int furnished = results.getInt("furnished");
+                int quadrant = results.getInt("quadrant");
+                int landlord = results.getInt("landlord");
+                int status = results.getInt("status");
+				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status));
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("Error selecting from Property");
+		}
+		finally {
+			if(results != null)
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(stm != null)
+				try {
+					stm.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+    	
+    }
+
+
+
 }

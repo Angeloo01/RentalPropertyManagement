@@ -24,5 +24,10 @@ public class MailController implements GUIController{
 		message = "To: "+receiver.getEmail() +"\nFrom: "+sender.getEmail()+"\n"+message;
 		return DatabaseConnectivity.sendMail(message, sender, receiver);
 	}
+	
+	public void initializeMail(String subject, String message) {
+		((MailGUI)view).setSubject(subject);
+		((MailGUI)view).setMessage(message);
+	}
 
 }

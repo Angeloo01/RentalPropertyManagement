@@ -104,9 +104,14 @@ public class LoginGUI extends GUIWindow{
             	new ManagerGUIController(new ManagerGUI(null));
             	dispose();
             }
+            else if (type == 1) {
+            	
+            	LandlordGUI landlordGUI = new LandlordGUI(null, ListOfUsers.getInstance().getUser(userText));
+            	dispose();
+            } 
             else if (type == 2) {
             	
-                new RegisteredRenterController(null, new User(userText, null, 2));
+                new RegisteredRenterController(null, ListOfUsers.getInstance().getUser(userText));
             	dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
@@ -124,7 +129,7 @@ public class LoginGUI extends GUIWindow{
                 JOptionPane.showMessageDialog(this, "Registration Successful");
             }
         	else {
-                JOptionPane.showMessageDialog(this, "Username is taken");
+                //JOptionPane.showMessageDialog(this, "Username is taken");
             }
         }
        //Coding Part of showPassword JCheckBox

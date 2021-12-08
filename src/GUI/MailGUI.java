@@ -40,11 +40,34 @@ public class MailGUI extends GUIWindow {
     	this(600, 400);
     	this.prev = prev;
     }
+	
+	public void setSubject(String sub) {
+		subjectTF.setText(sub);
+	}
+	
+	public void setMessage(String mes) {
+		messageTA.setText(mes);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == sendButton) {
-			((MailController)controller).sendMessage("Subject: "+subjectTF.getText() + "\n" + messageTA.getText());
+			if(((MailController)controller).sendMessage("Subject: "+subjectTF.getText() + "\nMessage:" + messageTA.getText())) {
+				JOptionPane.showMessageDialog(this, "Message Sent Successfully");
+				if(prev == null) {
+					LoginGUI frame = new LoginGUI(360, 600);
+				    LoginController controller = new LoginController(frame);
+				    frame.setController(controller);
+				    dispose();
+				}
+				else {
+					prev.setVisible(true);
+					dispose();
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Error in Sending Message");
+			}
 		}
 		else if(e.getSource() == previousButton) {
 			if(prev == null) {
@@ -96,18 +119,18 @@ public class MailGUI extends GUIWindow {
 
 	}
 
-	public static void main(String[] args) {
-  //LoginGUI frame = new LoginGUI(360, 600);
-		DatabaseConnectivity.initializeConnection("root", "ensf480");
-		DatabaseConnectivity.addUser(new User("admin", "admin", 0));
-		User sender = new User("user", "user", "user@email.ca", 2), receiver = new User("landlord", "landlord", "landlord@email.ca", 2);
-    	DatabaseConnectivity.addUser(sender);
-    	DatabaseConnectivity.addUser(receiver);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				MailController mCon = new MailController(new MailGUI(null), sender, receiver);
-			}
-		});
-  
-	}
+//	public static void main(String[] args) {
+//  //LoginGUI frame = new LoginGUI(360, 600);
+//		DatabaseConnectivity.initializeConnection("root", "ensf480");
+//		DatabaseConnectivity.addUser(new User("admin", "admin", 0));
+//		User sender = new User("user", "user", "user@email.ca", 2), receiver = new User("landlord", "landlord", "landlord@email.ca", 1);
+//    	DatabaseConnectivity.addUser(sender);
+//    	DatabaseConnectivity.addUser(receiver);
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				MailController mCon = new MailController(new MailGUI(null), sender, receiver);
+//			}
+//		});
+//  
+//	}
 }
