@@ -38,7 +38,7 @@ public class DatabaseConnectivity {
     public static void updateAllEntities() {
     	updateListOfUsers();
     	updateFeeModel();
-        updatePropertyStatus()
+        updatePropertyStatus();
     }
     
     public static void updateListOfUsers() {
