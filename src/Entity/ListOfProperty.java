@@ -29,5 +29,15 @@ private static ListOfProperty singleton;
     public List<Property> getProperies(){
 		return properties;
 	}
-
+    public boolean propertyExist(int propertyid)
+    {
+        for(Property property : properties)
+        {
+            if(propertyid==property.getID())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
