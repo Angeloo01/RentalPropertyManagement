@@ -14,7 +14,7 @@ public class RegisteredRenterController {
 
     public RegisteredRenterController(GUIWindow prev, User user) {
         this.model = new RegisteredRenter(user);
-        view = new RegisteredRenterGUI(prev, this.model);
+        view = new RegisteredRenterGUI(prev, user);
     }
 
     public ArrayList<Property> getMatchingProperties() {

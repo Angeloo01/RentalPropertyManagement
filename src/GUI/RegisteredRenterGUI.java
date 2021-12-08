@@ -14,6 +14,7 @@ import Controller.MailInboxController;
 import Controller.ViewPropertiesController;
 import Entity.PropertiesModel;
 import Entity.RegisteredRenter;
+import Entity.User;
 
 public class RegisteredRenterGUI extends GUIWindow {
 
@@ -24,7 +25,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 	
 	JButton inboxButton = new JButton("Inbox");
 	JButton propertyButton = new JButton("View Properties");
-	RegisteredRenter user;//model
+	User user;//model
 	JButton mailButton = new JButton("Email");
 	
 	public RegisteredRenterGUI(int x, int y) {
@@ -51,12 +52,12 @@ public class RegisteredRenterGUI extends GUIWindow {
     	this.prev = prev;
     }
 	
-	public RegisteredRenterGUI(GUIWindow prev, RegisteredRenter user) {
+	public RegisteredRenterGUI(GUIWindow prev, User user) {
     	this(prev);
     	this.user = user;
     }
 
-	public void setUser(RegisteredRenter user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

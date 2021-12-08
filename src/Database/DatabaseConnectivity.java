@@ -255,14 +255,14 @@ public class DatabaseConnectivity {
 					continue;
 				}
 				//else
-				int propertyid = results.getString("propertyid");
+				int propertyid = results.getInt("propertyid");
 				String type = results.getString("type");
-				int bedrooms = results.getString("bedrooms");
+				int bedrooms = results.getInt("bedrooms");
 				int bathrooms = results.getInt("bathrooms");
-                int furnished = results.getInt("furnished");
-                int quadrant = results.getInt("quadrant");
-                int landlord = results.getInt("landlord");
-                int status = results.getInt("status");
+                boolean furnished = results.getBoolean("furnished");
+                String quadrant = results.getString("quadrant");
+                String landlord = results.getString("landlord");
+                String status = results.getString("status");
 				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status));
 			}
 			

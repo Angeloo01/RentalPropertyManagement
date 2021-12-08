@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import Database.DatabaseConnectivity;
 import Entity.ListOfUsers;
+import Entity.RegisteredRenter;
 import Entity.User;
 import GUI.GUIWindow;
 import GUI.MailInboxGUI;
