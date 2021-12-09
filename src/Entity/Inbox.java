@@ -33,6 +33,7 @@ public class Inbox implements Observer {
 
     public Inbox(RegisteredRenter r) {
         user = r;
+        
         searchCriteria = DatabaseConnectivity.getUserSearchCriteria(user.getUsername());
         matchingProperties = new ArrayList<Property>();
         //search property list for properties that match the search criteria

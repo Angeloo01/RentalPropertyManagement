@@ -221,15 +221,17 @@ public class DatabaseConnectivity {
 
 
     public static ArrayList<SearchCriteria> getUserSearchCriteria(String username) {
-        String sql = "SELECT * FROM search_criteria WHERE Username = " + username;
+        String sql = "SELECT * FROM search_criteria WHERE Username = '" + username+"'";
+        System.out.println(sql);
         ArrayList<SearchCriteria> resultArray = new ArrayList<SearchCriteria>();
         try {
             Statement stmt = databaseConnection.createStatement();
             ResultSet results = stmt.executeQuery(sql);
-			stmt.close();
+			
             while(results.next()) {
                 resultArray.add(new SearchCriteria(results.getString(2), results.getInt(3), results.getInt(4), results.getBoolean(5), results.getString(6)));
             }
+            stmt.close();
         } catch (SQLException e) {
             System.err.println("Error retrieving search criteria with username " + username);
             e.printStackTrace();
@@ -293,7 +295,7 @@ public class DatabaseConnectivity {
                 String quadrant = results.getString("quadrant");
                 String landlord = results.getString("landlord");
                 String status = results.getString("status");
-				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status);
+				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status));
 			}
 			
 		} catch (SQLException e) {
@@ -335,7 +337,7 @@ public class DatabaseConnectivity {
     }
 
 	public static boolean addUserSearchCriteria(String username, String type, int beds, int baths, boolean furnished, String quadrant) {
-		String sql = "INSERT INTO search_criteria (username, type, bedrooms, bathrooms, quadrant) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO search_criteria (username, type, bedrooms, bathrooms, furnished, quadrant) VALUES (?,?,?,?,?,?)";
 		try {
 			PreparedStatement stm = databaseConnection.prepareStatement(sql);
 			stm.setString(1, username);

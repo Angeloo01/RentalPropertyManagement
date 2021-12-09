@@ -11,9 +11,10 @@ public class RegisteredRenter {
 	Object[][] data;
 
     public RegisteredRenter(User u) {
-        inbox = new Inbox(this);
-        username = u.getUsername();
+    	username = u.getUsername();
         email = u.getEmail();
+        inbox = new Inbox(this);
+        
         generateData();
     }
     public Inbox getInbox() {
