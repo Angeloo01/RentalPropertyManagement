@@ -238,6 +238,7 @@ public class DatabaseConnectivity {
     
 //int i, String t, int nBed, int nBath, boolean f, String q, String name, String state
     public static boolean addProperty(Property property) {
+    	System.out.println(property.getLandlordName());
         String query = "INSERT INTO property (type, bedrooms, bathrooms,furnished, quadrant, landlord, status) VALUES (?,?,?,?,?,?,?)";
     	try {
 			PreparedStatement stm = databaseConnection.prepareStatement(query);
@@ -261,6 +262,7 @@ public class DatabaseConnectivity {
 				return false;
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.err.println("Error adding property to DB");
 			return false;
 		}
@@ -275,6 +277,7 @@ public class DatabaseConnectivity {
 			stm = databaseConnection.createStatement();
 			results = stm.executeQuery("SELECT * FROM property");
 			ListOfProperty list = ListOfProperty.getInstance();
+			list.clearList();
 			while(results.next()) {
 				//property is already in list
 				if(list.propertyExist(results.getInt("propertyid"))) {
@@ -310,6 +313,24 @@ public class DatabaseConnectivity {
 				}
 		}
     	
+    }
+    
+    public static boolean changePropertyState(int propID, String state) {
+    	try {
+			Statement stm = databaseConnection.createStatement();
+			//System.out.println(propID);
+			if(stm.executeUpdate("UPDATE property SET status = '"+state+"' WHERE propertyid = "+String.valueOf(propID)) <= 0)
+				return false;
+			stm.close();
+			
+			DatabaseConnectivity.updateFeeModel();
+			return true;
+			
+		} catch (SQLException e) {
+			System.err.println("Error changing state in DB");
+			e.printStackTrace();
+			return false;
+		}
     }
 
 

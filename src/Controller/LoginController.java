@@ -15,6 +15,7 @@ public class LoginController implements GUIController{
 		view = gui;
 		view.setController(this);
 		this.model = ListOfUsers.getInstance();
+		DatabaseConnectivity.updateAllEntities();
 	}
 	
 	public int checkCredentials(String username, char[] password) {

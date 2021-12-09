@@ -74,7 +74,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 		}
 		else if(e.getSource() == inboxButton) {
 			PropertiesModel pModel = new PropertiesModel(true);
-			pModel.getData()[0][0] = "House";
+			//pModel.getData()[0][0] = "House";
 	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel, user);
 	    	setVisible(false);
 		}

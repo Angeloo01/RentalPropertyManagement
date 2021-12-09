@@ -40,4 +40,7 @@ private static ListOfProperty singleton;
         }
         return false;
     }
+    public void clearList() {
+    	properties = new ArrayList<Property>();
+    }
 }

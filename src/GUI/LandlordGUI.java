@@ -4,8 +4,10 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+import Controller.LandlordPropertiesController;
 import Controller.LoginController;
 import Controller.MailInboxController;
+import Entity.ListOfUsers;
 import Entity.User;
 
 
@@ -49,6 +51,10 @@ public class LandlordGUI extends GUIWindow {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == mailBut) {
 			new MailInboxController(new MailInboxGUI(this), landlord);
+			setVisible(false);
+		}
+		else if(e.getSource() == probBut) {
+			new LandlordPropertiesController(new LandlordPropertiesGUI(this), landlord);
 			setVisible(false);
 		}
 		else if(e.getSource() == previousButton) {
