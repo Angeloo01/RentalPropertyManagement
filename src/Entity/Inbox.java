@@ -31,5 +31,6 @@ public class Inbox implements Observer {
     
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         searchCriteria.add(new SearchCriteria(type, beds, baths, quadrant));
+        DatabaseConnectivity.addUserSearchCriteria(user.getUsername(), type, beds, baths, furnished, quadrant);
     }
 }

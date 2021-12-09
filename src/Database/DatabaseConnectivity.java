@@ -226,6 +226,7 @@ public class DatabaseConnectivity {
         try {
             Statement stmt = databaseConnection.createStatement();
             ResultSet results = stmt.executeQuery(sql);
+			stmt.close();
             while(results.next()) {
                 resultArray.add(new SearchCriteria(results.getString(2), results.getInt(3), results.getInt(4), results.getString(5)));
             }
@@ -292,7 +293,7 @@ public class DatabaseConnectivity {
                 String quadrant = results.getString("quadrant");
                 String landlord = results.getString("landlord");
                 String status = results.getString("status");
-				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status));
+				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status);
 			}
 			
 		} catch (SQLException e) {
@@ -332,6 +333,33 @@ public class DatabaseConnectivity {
 			return false;
 		}
     }
+
+	public static boolean addUserSearchCriteria(String username, String type, int beds, int baths, boolean furnished, String quadrant) {
+		String sql = "INSERT INTO search_criteria (username, type, bedrooms, bathrooms, quadrant) VALUES (?,?,?,?,?)";
+		try {
+			PreparedStatement stm = databaseConnection.prepareStatement(sql);
+			stm.setString(1, username);
+			stm.setString(2, type);
+			stm.setInt(3, beds);
+			stm.setInt(4, baths);
+			stm.setBoolean(5, furnished);
+			stm.setString(6, quadrant);
+			int rowCount = stm.executeUpdate();
+
+			stm.close();
+			
+			if(rowCount > 0) {			
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Error adding search criteria to DB");
+			return false;
+		}
+	}
 
 
 
