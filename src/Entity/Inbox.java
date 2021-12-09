@@ -11,11 +11,24 @@ public class Inbox implements Observer {
 
     @Override
     public void update(Property prop) {
+    	
         for(SearchCriteria search : searchCriteria) {
-            if(search.matches(prop)) {
+        	System.out.println(prop.getType()+prop.getQuadrant());
+        	System.out.println(search.matches(prop) && !matchingContains(prop));
+            if(search.matches(prop) && !matchingContains(prop)) {
+            	//System.out.println("update");
                 matchingProperties.add(prop);
             }
         }
+    }
+    
+    public boolean matchingContains(Property prop) {
+    	//System.out.println(prop.getID());
+    	for(Property inlist : matchingProperties) {
+    		//System.out.println(inlist.getID());
+    		if(inlist.getID() == prop.getID()) return true;
+    	}
+    	return false;
     }
 
     public Inbox(RegisteredRenter r) {
@@ -26,10 +39,12 @@ public class Inbox implements Observer {
     }
 
     public ArrayList<Property> getMatchingProperties() {
+    	//System.out.println("getting matched");
         return matchingProperties;
     }
     
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
-        searchCriteria.add(new SearchCriteria(type, beds, baths, quadrant));
+    	System.out.println("adding search");
+        searchCriteria.add(new SearchCriteria(type, beds, baths, furnished, quadrant));
     }
 }

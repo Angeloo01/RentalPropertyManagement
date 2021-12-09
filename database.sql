@@ -32,8 +32,9 @@ CREATE TABLE SEARCH_CRITERIA (
     Type			varchar(25) not null default 'House',
 	Bedrooms		int not null default 0,
     Bathrooms		int not null default 0,
+    Furnished		boolean not null default false,
     Quadrant		varchar(25) not null default 'NW',
-    primary key (Username, Type, Bedrooms, Bathrooms, Quadrant),
+    primary key (Username, Type, Bedrooms, Bathrooms, Furnished, Quadrant),
     foreign key (Username) references USERS(Username)
 );
 

@@ -1,16 +1,17 @@
 package Entity;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import Database.DatabaseConnectivity;
 
 public class PropertiesModel {
 	String[] columnNames = { "Type", "Bedrooms", "Bathrooms", "Furnished", "City Quadrant" };
 	Object[][] data;
-	ListOfProperty list;
-	public PropertiesModel(boolean activeOnly) {
+	List<Property> list;
+	public PropertiesModel(boolean activeOnly, List<Property> list) {
 		DatabaseConnectivity.updatePropertyStatus();
-		list = ListOfProperty.getInstance();
+		this.list = list;
 		generateData(activeOnly);
 	}
 	public String[] getColumnNames() {
@@ -22,7 +23,7 @@ public class PropertiesModel {
 
 	private void generateData(boolean activeOnly) {
 		LinkedList<Object[]> temp = new LinkedList<Object[]>();
-		for(Property prop : list.getProperies()) {
+		for(Property prop : list) {
 			if(activeOnly) {
 				if(prop.getStateOfProperty().equalsIgnoreCase("active")) {
 					//System.out.println(prop.getType());

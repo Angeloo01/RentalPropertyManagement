@@ -22,5 +22,9 @@ public abstract class GUIWindow extends JFrame implements ActionListener{
     	this.controller = controller;
     }
 	
+	public GUIController getController() {
+		return controller;
+	}
+	
 
 }

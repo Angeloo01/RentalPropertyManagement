@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,8 +12,11 @@ import javax.swing.JPanel;
 
 import Controller.LoginController;
 import Controller.MailInboxController;
+import Controller.RegisteredRenterController;
 import Controller.ViewPropertiesController;
+import Entity.ListOfProperty;
 import Entity.PropertiesModel;
+import Entity.Property;
 import Entity.RegisteredRenter;
 import Entity.User;
 
@@ -64,7 +68,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == propertyButton) {
-			PropertiesModel pModel = new PropertiesModel(true);
+			PropertiesModel pModel = new PropertiesModel(true, ListOfProperty.getInstance().getProperies());
 	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel, user);
 	    	setVisible(false);
 		}
@@ -73,9 +77,11 @@ public class RegisteredRenterGUI extends GUIWindow {
 			setVisible(false);
 		}
 		else if(e.getSource() == inboxButton) {
-			PropertiesModel pModel = new PropertiesModel(true);
+			
+			ListOfProperty.getInstance().registerObserver(((RegisteredRenterController)controller).getInbox());
+			PropertiesModel pModel = new PropertiesModel(true, (List<Property>)((RegisteredRenterController)controller).getMatchingProperties());
 			//pModel.getData()[0][0] = "House";
-	    	new ViewPropertiesController (new ViewPropertiesGUI(this), pModel, user);
+	    	new ViewPropertiesController (new RenterNotificationGUI(this), pModel, user);
 	    	setVisible(false);
 		}
     	
@@ -124,6 +130,7 @@ public class RegisteredRenterGUI extends GUIWindow {
 		propertyButton.addActionListener(this);
 		previousButton.addActionListener(this);
 		mailButton.addActionListener(this);
+		
 	}
 	
 	public void setContainer() {
