@@ -240,7 +240,7 @@ public class DatabaseConnectivity {
 //int i, String t, int nBed, int nBath, boolean f, String q, String name, String state
     public static boolean addProperty(Property property) {
     	System.out.println(property.getLandlordName());
-        String query = "INSERT INTO property (type, bedrooms, bathrooms,furnished, quadrant, landlord, status) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO property (type, bedrooms, bathrooms,furnished, quadrant, landlord, date_registered, status) VALUES (?,?,?,?,?,?,?,?)";
     	try {
 			PreparedStatement stm = databaseConnection.prepareStatement(query);
 			//stm.setInt(1, property.getID());
@@ -250,7 +250,8 @@ public class DatabaseConnectivity {
             stm.setBoolean(4, property.getFurnished());
             stm.setString(5, property.getQuadrant());
             stm.setString(6, property.getLandlordName());
-            stm.setString(7, property.getStateOfProperty());
+			stm.setDate(7, Date.valueOf(property.getRegisterDate()));
+            stm.setString(8, property.getStateOfProperty());
 
 			int rowCount = stm.executeUpdate();
 			stm.close();
@@ -292,8 +293,10 @@ public class DatabaseConnectivity {
                 boolean furnished = results.getBoolean("furnished");
                 String quadrant = results.getString("quadrant");
                 String landlord = results.getString("landlord");
+				String regDate = results.getDate("date_registered").toString();
+				String rentDate = results.getDate("date_rented").toString();
                 String status = results.getString("status");
-				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status);
+				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status, regDate));
 			}
 			
 		} catch (SQLException e) {
@@ -320,8 +323,14 @@ public class DatabaseConnectivity {
     	try {
 			Statement stm = databaseConnection.createStatement();
 			//System.out.println(propID);
-			if(stm.executeUpdate("UPDATE property SET status = '"+state+"' WHERE propertyid = "+String.valueOf(propID)) <= 0)
-				return false;
+			if(state.equalsIgnoreCase("rented")) {
+				if(stm.executeUpdate("UPDATE property SET status = 'rented', date_rented = '" + new Date(System.currentTimeMillis()) + 
+				"' WHERE propertyid = " + String.valueOf(propID)) <= 0)
+					return false;
+			} else {
+				if(stm.executeUpdate("UPDATE property SET status = '" + state + "' WHERE propertyid = "+String.valueOf(propID)) <= 0)
+					return false;
+			}
 			stm.close();
 			
 			DatabaseConnectivity.updateFeeModel();
