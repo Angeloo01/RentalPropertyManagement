@@ -14,8 +14,11 @@ public class SearchCriteria {
     }
 
     public boolean matches(Property prop) {
-        //return whether or not all search criteria fields match the property fields
-        return false;
+        if (type != prop.getType()) return false;
+        if (bedrooms != prop.getNumBed()) return false;
+        if (bathrooms != prop.getNumBath()) return false;
+        if (!quadrant.equals(prop.getQuadrant())) return false;
+        return true;
     }
 
     public String toString() {
