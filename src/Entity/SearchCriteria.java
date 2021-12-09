@@ -4,6 +4,7 @@ public class SearchCriteria {
     private String type;
     private int bedrooms;
     private int bathrooms;
+    private boolean furnished;
     private String quadrant;
     
     public SearchCriteria(String type, int beds, int baths, String quadrant) {
@@ -17,6 +18,7 @@ public class SearchCriteria {
         if (type != prop.getType()) return false;
         if (bedrooms != prop.getNumBed()) return false;
         if (bathrooms != prop.getNumBath()) return false;
+        if (furnished != prop.getFurnished()) return false;
         if (!quadrant.equals(prop.getQuadrant())) return false;
         return true;
     }

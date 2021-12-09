@@ -21,8 +21,8 @@ public class RegisteredRenterController {
         return model.getInbox().getMatchingProperties();
     }
 
-    public void addSearchCriteria(String type, int beds, int baths, String quadrant) {
-        model.addSearchCriteria(type, beds, baths, quadrant);
+    public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
+        model.addSearchCriteria(type, beds, baths, furnished, quadrant);
     }
 }
 

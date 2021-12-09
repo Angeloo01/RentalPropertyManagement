@@ -14,8 +14,8 @@ public class RegisteredRenter {
         return inbox;
     }
 
-    public void addSearchCriteria(String type, int beds, int baths, String quadrant) {
-        inbox.addSearchCriteria(type, beds, baths, quadrant);
+    public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
+        inbox.addSearchCriteria(type, beds, baths, furnished, quadrant);
     }
 
     public String getUsername() {

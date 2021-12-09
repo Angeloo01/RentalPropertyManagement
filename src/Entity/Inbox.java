@@ -29,7 +29,7 @@ public class Inbox implements Observer {
         return matchingProperties;
     }
     
-    public void addSearchCriteria(String type, int beds, int baths, String quadrant) {
+    public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         searchCriteria.add(new SearchCriteria(type, beds, baths, quadrant));
     }
 }
