@@ -24,6 +24,10 @@ public class RegisteredRenterController {
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         model.addSearchCriteria(type, beds, baths, furnished, quadrant);
     }
+
+    public ArrayList<Property> getInboxProperties() {
+        return model.getInbox().getMatchingProperties();
+    }
 }
 
 
