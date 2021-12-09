@@ -228,7 +228,7 @@ public class DatabaseConnectivity {
             ResultSet results = stmt.executeQuery(sql);
 			stmt.close();
             while(results.next()) {
-                resultArray.add(new SearchCriteria(results.getString(2), results.getInt(3), results.getInt(4), results.getString(5)));
+                resultArray.add(new SearchCriteria(results.getString(2), results.getInt(3), results.getInt(4), results.getBoolean(5), results.getString(6)));
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving search criteria with username " + username);

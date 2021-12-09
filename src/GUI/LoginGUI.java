@@ -6,6 +6,7 @@ import Controller.LoginController;
 import Controller.ManagerGUIController;
 import Controller.RegisteredRenterController;
 import Controller.ViewPropertiesController;
+import Entity.ListOfProperty;
 import Entity.ListOfUsers;
 import Entity.PropertiesModel;
 import Entity.User;
@@ -151,7 +152,7 @@ public class LoginGUI extends GUIWindow{
 //				JOptionPane.showMessageDialog(this, "Email is taken");
 //	            return;
 //	        }
-        	PropertiesModel pModel = new PropertiesModel(true);
+        	PropertiesModel pModel = new PropertiesModel(true, ListOfProperty.getInstance().getProperies());
         	new ViewPropertiesController (new ViewPropertiesGUI(null), pModel);
         	dispose();
         	

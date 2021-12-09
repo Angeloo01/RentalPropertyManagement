@@ -6,6 +6,7 @@ import Entity.ListOfUsers;
 import Entity.PropertiesModel;
 import Entity.User;
 import GUI.GUIWindow;
+import GUI.RenterNotificationGUI;
 import GUI.ViewPropertiesGUI;
 
 public class ViewPropertiesController implements GUIController{
@@ -16,7 +17,10 @@ public class ViewPropertiesController implements GUIController{
 	public ViewPropertiesController(GUIWindow gui, PropertiesModel model) {
 		view = gui;
 		view.setController(this);
-		((ViewPropertiesGUI)view).setTableModel(model.getColumnNames(), model.getData());
+		if(gui instanceof ViewPropertiesGUI)
+			((ViewPropertiesGUI)view).setTableModel(model.getColumnNames(), model.getData());
+		else if(gui instanceof RenterNotificationGUI)
+			((RenterNotificationGUI)view).setTableModel(model.getColumnNames(), model.getData());
 		this.model = model;
 	}
 	
@@ -53,7 +57,10 @@ public class ViewPropertiesController implements GUIController{
 								newArray.add(row);
 		}
 		Object[][] output = new Object[newArray.size()][];
-		((ViewPropertiesGUI)view).setTableModel(model.getColumnNames(), newArray.toArray(output));
+		if(view instanceof ViewPropertiesGUI)
+			((ViewPropertiesGUI)view).setTableModel(model.getColumnNames(), newArray.toArray(output));
+		else if(view instanceof RenterNotificationGUI)
+			((RenterNotificationGUI)view).setTableModel(model.getColumnNames(), newArray.toArray(output));
 	}
 	
 
