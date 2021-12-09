@@ -20,6 +20,8 @@ CREATE TABLE PROPERTY (
     Furnished		bool not null default false,
     Quadrant		varchar(25) not null default 'NW',
     Landlord		varchar(25) not null,
+    Date_Registered date not null,
+    Date_Rented     date,
     Status 			varchar(25) not null default 'registered',# registered, active, rented, cancelled, suspended
 	primary key (PropertyID),
     foreign key (Landlord) references USERS(Username)

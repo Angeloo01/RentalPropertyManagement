@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import Database.DatabaseConnectivity;
@@ -55,7 +56,7 @@ public class LandlordPropertiesController implements GUIController{
 	}
 	
 	public boolean registerProperty(String type, int bed, int bath, boolean furnished, String quad) {
-		Property property = new Property(type, bed, bath, furnished, quad, landlord.getUsername(), "registered");
+		Property property = new Property(type, bed, bath, furnished, quad, landlord.getUsername(), "registered", (new Date(System.currentTimeMillis())).toString());
 		boolean added = DatabaseConnectivity.addProperty(property);
 		updatePropertyModel();
 		return added;
