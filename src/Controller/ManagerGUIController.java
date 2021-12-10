@@ -43,12 +43,7 @@ public class ManagerGUIController implements GUIController {
 		return DatabaseConnectivity.changeFee();
 	}
 	
-	public SummaryReport getSummaryReport(int period) {
+	public SummaryReport getSummaryReport(long period) {
 		return new SummaryReport(period);
 	}
-	
-	public void viewDatabase() {
-		//change return type
-	}
-
 }

@@ -401,7 +401,7 @@ public class DatabaseConnectivity {
 		}
 	}
 
-	public static int getNumPropertiesListed(int period) {
+	public static int getNumPropertiesListed(long period) {
 		//period is a number of days before the current date that the returned properties were listed in
 		//86400000 is the number of milliseconds in 24 hours
 		Date periodStartDate = new Date(System.currentTimeMillis()-period*86400000);
@@ -452,7 +452,7 @@ public class DatabaseConnectivity {
 		return numProps;
 	}
 	
-	public static ArrayList<Property> getRentedProperties(int period) {
+	public static ArrayList<Property> getRentedProperties(long period) {
 		//period is a number of days before the current date that the returned properties were listed in
 		//86400000 is the number of milliseconds in 24 hours
 		Date periodStartDate = new Date(System.currentTimeMillis()-period*86400000);

@@ -85,10 +85,20 @@ public class ManagerGUI extends GUIWindow {
 		}
 		else if(e.getSource() == summButton) {
 			String inp = JOptionPane.showInputDialog("Enter a period");
-			int period = Integer.valueOf(inp);
-			SummaryReport report = ((ManagerGUIController)controller).getSummaryReport(period);
-			new SummaryReportGUI(this, report);
-			dispose();
+			if(inp != null) {
+				try {
+					int period = Integer.valueOf(inp);
+					if (period < 0) {
+						JOptionPane.showMessageDialog(new JFrame(), "Period cannot be negative", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						SummaryReport report = ((ManagerGUIController)controller).getSummaryReport((long)period);
+						new SummaryReportGUI(this, report);
+						dispose();
+					}
+				} catch (NumberFormatException err) {
+					JOptionPane.showMessageDialog(new JFrame(), "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		}
 		else if(e.getSource() == dbButton) {
 			new DatabaseGUI(this);

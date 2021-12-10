@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -27,7 +28,6 @@ public class SummaryReportGUI extends GUIWindow {
         super();
         this.prev = prev;
         this.reportModel = r;
-        System.out.println(System.currentTimeMillis() - 86400000*reportModel.getPeriod());
 
         dateLabel = new JLabel("Showing summary report from " + reportModel.getStartDate() + " to " + reportModel.getEndDate());
         numListedPropsLabel = new JLabel("Properties listed: " + reportModel.getNumPropertiesListed());
