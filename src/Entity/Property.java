@@ -53,48 +53,49 @@ public class Property{
         stateOfProperty= state; 
         registerDate = regDate;
     }
-
+    // getter for the ID
     public int getID() {
         return id;
     }
-
+    // getter for the type
     public String getType(){
         return type;
     }
-
+    // getter for the address
     public String getAddress() {
         return address;
     }
-
+    // getter for the number of baths
     public int getNumBath(){
         return numBaths;
     }
-
+    // getter for the number of beds
     public int getNumBed(){
         return numBeds;
     }
+    // getter for the Furnished boolean
     public boolean getFurnished(){
         return furnished;
     }
-
+    // getter for the quadrant
     public String getQuadrant(){
         return quadrant;
     }
-
+    // getter for the landlord's name
     public String getLandlordName()
     {
         return landlordName; 
     }
-
+    // getter for the state of the property
     public String getStateOfProperty()
     {
         return stateOfProperty; 
     }
-
+    // getter for the registration date
     public String getRegisterDate() {
         return registerDate;
     }
-
+    // getter for the date of the rental
     public String getRentDate() {
         return rentDate;
     }

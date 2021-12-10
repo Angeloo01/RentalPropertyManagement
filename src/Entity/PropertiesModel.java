@@ -14,20 +14,21 @@ public class PropertiesModel {
 		this.list = list;
 		generateData(activeOnly);
 	}
+	// getter for the column names
 	public String[] getColumnNames() {
 		return columnNames;
 	}
+	// getter for the data
 	public Object[][] getData() {
 		return data;
 	}
-
+	// generates the list of properties wanted based on if we want the active 
+	// properties only or all
 	private void generateData(boolean activeOnly) {
 		LinkedList<Object[]> temp = new LinkedList<Object[]>();
 		for(Property prop : list) {
 			if(activeOnly) {
 				if(prop.getStateOfProperty().equalsIgnoreCase("active")) {
-					//System.out.println(prop.getType());
-					//System.out.println(prop.getStateOfProperty());
 					temp.add(new Object[] {prop.getType(), prop.getAddress(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getID(), prop.getLandlordName(), prop.getStateOfProperty()});
 				}
 			}
@@ -37,7 +38,7 @@ public class PropertiesModel {
 		}
 		data = temp.toArray(new Object[temp.size()][]);
 	}
-
+	// getter for the colums with all the data inside of it
 	public Object[][] getColumns(LinkedList<Integer> cols) {
 		LinkedList<Object[]> temp = new LinkedList<Object[]>();
 		for(Object [] o : data) {

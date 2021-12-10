@@ -17,7 +17,7 @@ public class LoginController implements GUIController{
 		this.model = ListOfUsers.getInstance();
 		DatabaseConnectivity.updateAllEntities();
 	}
-	
+	// checks the username and password
 	public int checkCredentials(String username, char[] password) {
 		DatabaseConnectivity.updateListOfUsers();
 		for(User user : model.getUsers()) {
@@ -27,7 +27,7 @@ public class LoginController implements GUIController{
 		}
 		return -1;
 	}
-	
+	// registers a new user and checks that username is not taken already
 	public boolean registerUser(String username, char[] password) {
 		for(User user : model.getUsers()) {
 			if (username.equalsIgnoreCase(user.getUsername())) {

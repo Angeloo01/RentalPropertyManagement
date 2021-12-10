@@ -30,7 +30,7 @@ public class MailInboxController implements GUIController {
 		buildInbox();
 		((MailInboxGUI)view).setTableModel(inbox);
 	}
-	
+	// builds the inbox with all previous conversations
 	public void buildInbox() {
 		String[] messages = DatabaseConnectivity.retrieveMail(receiver);
 		if(messages == null) {
@@ -47,7 +47,7 @@ public class MailInboxController implements GUIController {
 		}
 		inbox = list.toArray(new Object[list.size()][]);
 	}
-	
+	// getter for the receiver
 	public User getReceiver() {
 		return receiver;
 	}
@@ -56,14 +56,13 @@ public class MailInboxController implements GUIController {
 		String email = (String)inbox[index][0];
 		email = email.replace("\n", "");
 		email = email.replace("\r", "");
-		//System.out.println(ListOfUsers.getInstance().getUserFromEmail(email));
 		return ListOfUsers.getInstance().getUserFromEmail(email);
 	}
-	
+	// getter for the subject
 	public String getSubject(int index) {
 		return (String)inbox[index][1];
 	}
-	
+	// getter for the message
 	public String getMessage(int index) {
 		return (String)inbox[index][2];
 	}

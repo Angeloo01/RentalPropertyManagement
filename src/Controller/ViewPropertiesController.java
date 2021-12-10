@@ -28,23 +28,24 @@ public class ViewPropertiesController implements GUIController{
 		this(gui, model);
 		this.user =user;
 	}
-	
+	// selects a property based on the index
 	public void selectProperty(int index) {
 		Object[] row = model.getData()[index];
 		for(int i =0; i< row.length; i++) {
 			System.out.println(row[i]);
 		}
 	}
-	
+	// getter for the user
 	public User getUser() {
 		return user;
 	}
+	// getter for the landlord
 	public User getLandlord(int index) {
 		Object[] row = model.getData()[index];
 		System.out.println(row[7]);
 		return ListOfUsers.getInstance().getUser((String)row[7]);
 	}
-	
+	// filters which properties are being shown
 	public void filterModel(String type, Integer bed, Integer bath, Boolean furnished, String quadrant) {
 		Object[][] oldArray = model.getData();
 		LinkedList<Object[]> newArray = new LinkedList<Object[]>();

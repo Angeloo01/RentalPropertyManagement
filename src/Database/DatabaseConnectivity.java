@@ -23,7 +23,6 @@ public class DatabaseConnectivity {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Connection successfully initialized.");
     }
 
     public static void closeConnection() {

@@ -24,31 +24,31 @@ public class RegisteredRenterController implements GUIController{
         view.setController(this);
         renter = user;
     }
-
+    // returns an ArrayList with all properties that match search criteria
     public ArrayList<Property> getMatchingProperties() {
         return model.getInbox().getMatchingProperties();
     }
-
+    // adds a search criteria 
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         model.addSearchCriteria(type, beds, baths, furnished, quadrant);
     }
-    
+    // removes a search criteria 
     public void removeSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         model.removeSearchCriteria(type, beds, baths, furnished, quadrant);
     }
-
+    // returns an ArrayList of properties taht match the 
     public ArrayList<Property> getInboxProperties() {
         return model.getInbox().getMatchingProperties();
     }
-    
+    // getter for the Inbox
     public Inbox getInbox() {
     	return model.getInbox();
     }
-	
+    // getter for the user
 	public User getUser() {
 		return renter;
 	}
-	
+	// setter for the search model
 	public void setSearchModel(RenterNotificationGUI gui) {
 		String[] column = {"Type", "beds","baths","furnished", "quadrant"};
 		Object[][] searchModel = model.getInbox().getSearchModel();

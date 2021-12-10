@@ -28,7 +28,7 @@ public class LandlordPropertiesController implements GUIController{
 		updatePropertyModel();
 		updateFeeModel();
 	}
-	
+	// Update which properties are being shown
 	public void updatePropertyModel() {
 		DatabaseConnectivity.updatePropertyStatus();
 		
@@ -51,19 +51,19 @@ public class LandlordPropertiesController implements GUIController{
 		props = model.toArray(new Object[model.size()][]);
 		((LandlordPropertiesGUI)view).setTableModel(props);
 	}
-	
+	// updates the fee being shown
 	public void updateFeeModel() {
 		DatabaseConnectivity.updateFeeModel();
 		((LandlordPropertiesGUI)view).setFeeModel("Activation Fee: $"+String.valueOf(FeeModel.getInstance().getAmount())+" for "+String.valueOf(FeeModel.getInstance().getPeriod()) +" days");
 	}
-	
+	// changes the state of a property
 	public boolean changePropertyState(int selectedRow, String state) {
 		System.out.println(state);
 		boolean changed = DatabaseConnectivity.changePropertyState((Integer)props[selectedRow][7], state);
 		updatePropertyModel();
 		return changed;
 	}
-	
+	// registers a new property 
 	public boolean registerProperty(String type, String address, int bed, int bath, boolean furnished, String quad) {
 		Property property = new Property(type, address, bed, bath, furnished, quad, landlord.getUsername(), "registered", (new Date(System.currentTimeMillis())).toString());
 		boolean added = DatabaseConnectivity.addProperty(property);

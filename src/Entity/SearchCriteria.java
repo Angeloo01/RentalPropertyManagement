@@ -14,7 +14,7 @@ public class SearchCriteria {
         this.furnished = furnished;
         this.quadrant = quadrant;
     }
-
+    // checks to see if the property given matches the search criteria
     public boolean matches(Property prop) {
     	if(!prop.getStateOfProperty().equalsIgnoreCase("active")) return false;
     	
@@ -30,31 +30,30 @@ public class SearchCriteria {
         
         return true;
     }
-
+    // returns a string of the type, bedrooms, bathrooms and, quadrant
     public String toString() {
         return type + " " + bedrooms + " " + bathrooms + " " + quadrant; 
     }
-
+    // getter for the type
 	public String getType() {
 		return type;
 	}
-
+    // getter for the bedrooms
 	public int getBedrooms() {
 		return bedrooms;
 	}
-
+    // getter for the bathrooms 
 	public int getBathrooms() {
 		return bathrooms;
 	}
-
+    // getter for the furnished
 	public boolean isFurnished() {
 		return furnished;
 	}
-
+    // getter for the quadrant
 	public String getQuadrant() {
 		return quadrant;
 	}
-	
 	public boolean getFurnished() {
 		return furnished;
 	}
