@@ -372,6 +372,33 @@ public class DatabaseConnectivity {
 			return false;
 		}
 	}
+	
+	public static boolean removeUserSearchCriteria(String username, String type, int beds, int baths, boolean furnished, String quadrant) {
+		String sql = "DELETE FROM search_criteria WHERE username = ? AND type = ? AND bedrooms = ? AND bathrooms = ? AND furnished = ? AND quadrant = ?";
+		try {
+			PreparedStatement stm = databaseConnection.prepareStatement(sql);
+			stm.setString(1, username);
+			stm.setString(2, type);
+			stm.setInt(3, beds);
+			stm.setInt(4, baths);
+			stm.setBoolean(5, furnished);
+			stm.setString(6, quadrant);
+			int rowCount = stm.executeUpdate();
+
+			stm.close();
+			
+			if(rowCount > 0) {			
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Error adding search criteria to DB");
+			return false;
+		}
+	}
 
 	public static int getNumPropertiesListed(int period) {
 		//period is a number of days before the current date that the returned properties were listed in

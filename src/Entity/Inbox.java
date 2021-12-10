@@ -52,4 +52,14 @@ public class Inbox implements Observer {
         }
 
     }
+    
+    public void removeSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
+
+        if(DatabaseConnectivity.removeUserSearchCriteria(user.getUsername(), type, beds, baths, furnished, quadrant)) {
+	    	System.out.println("removing search");
+	        searchCriteria.clear();
+	        searchCriteria = DatabaseConnectivity.getUserSearchCriteria(user.getUsername());
+        }
+
+    }
 }

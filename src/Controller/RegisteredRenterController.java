@@ -32,6 +32,10 @@ public class RegisteredRenterController implements GUIController{
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         model.addSearchCriteria(type, beds, baths, furnished, quadrant);
     }
+    
+    public void removeSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
+        model.removeSearchCriteria(type, beds, baths, furnished, quadrant);
+    }
 
     public ArrayList<Property> getInboxProperties() {
         return model.getInbox().getMatchingProperties();
