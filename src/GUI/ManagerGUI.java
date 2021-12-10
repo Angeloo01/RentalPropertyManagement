@@ -91,7 +91,8 @@ public class ManagerGUI extends GUIWindow {
 			dispose();
 		}
 		else if(e.getSource() == dbButton) {
-			//((ManagerGUIController)controller).getSummaryReport();
+			new DatabaseGUI(this);
+			dispose();
 		}
 		else if(e.getSource() == previousButton) {
 			if(prev == null) {

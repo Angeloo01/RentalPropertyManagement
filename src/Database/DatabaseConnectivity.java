@@ -481,4 +481,80 @@ public class DatabaseConnectivity {
 
 		return propList;
 	}
+
+	public static Object[][] getPropertiesTable() {
+		String sql = "SELECT * FROM property";
+		ArrayList<Object[]> resultArr = new ArrayList<Object[]>();
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			while(res.next()) {
+				Object[] row = new Object[11];
+				row[0] = res.getInt("propertyid");
+				row[1] = res.getString("type");
+				row[2] = res.getString("address");
+				row[3] = res.getInt("bedrooms");
+				row[4] = res.getInt("bathrooms");
+				row[5] = res.getBoolean("furnished");
+				row[6] = res.getString("quadrant");
+				row[7] = res.getString("Landlord");
+				row[8] = res.getDate("date_registered");
+				row[9] = res.getDate("date_rented");
+				row[10] = res.getString("status");
+				resultArr.add(row);
+			}
+
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("Error retrieving object matrix of properties from DB");
+			e.printStackTrace();
+		}
+		return resultArr.toArray(new Object[resultArr.size()][]);
+	}
+
+	public static Object[][] getRentersTable() {
+		String sql = "SELECT * FROM users WHERE type = 2";
+		ArrayList<Object[]> resultArr = new ArrayList<Object[]>();
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			while(res.next()) {
+				Object[] row = new Object[4];
+				row[0] = res.getString("username");
+				row[1] = res.getString("password");
+				row[2] = res.getString("email");
+				row[3] = res.getInt("type");
+				resultArr.add(row);
+			}
+
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("Error retrieving object matrix of renters from DB");
+			e.printStackTrace();
+		}
+		return resultArr.toArray(new Object[resultArr.size()][]);
+	}
+
+	public static Object[][] getLandlordsTable() {
+		String sql = "SELECT * FROM users WHERE type = 1";
+		ArrayList<Object[]> resultArr = new ArrayList<Object[]>();
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			while(res.next()) {
+				Object[] row = new Object[4];
+				row[0] = res.getString("username");
+				row[1] = res.getString("password");
+				row[2] = res.getString("email");
+				row[3] = res.getInt("type");
+				resultArr.add(row);
+			}
+
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("Error retrieving object matrix of landlords from DB");
+			e.printStackTrace();
+		}
+		return resultArr.toArray(new Object[resultArr.size()][]);
+	}
 }
