@@ -24,6 +24,10 @@ public class RegisteredRenter {
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
         inbox.addSearchCriteria(type, beds, baths, furnished, quadrant);
     }
+    
+    public void removeSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
+        inbox.removeSearchCriteria(type, beds, baths, furnished, quadrant);
+    }
 
     public String getUsername() {
         return username;
