@@ -3,6 +3,7 @@ package Entity;
 public class Property{
 	private int id;
     private String type;
+    private String address;
     private int numBeds;
     private int numBaths;
     private boolean furnished;
@@ -13,9 +14,10 @@ public class Property{
     private String registerDate;
     private String rentDate;
 
-    public Property(int i, String t, int nBed, int nBath, boolean f, String q, String name, String state, String regDate){
+    public Property(int i, String t, String addr, int nBed, int nBath, boolean f, String q, String name, String state, String regDate){
         id = i;
         type = t;
+        address = addr;
         numBaths = nBath;
         numBeds = nBed;
         furnished = f;
@@ -24,8 +26,9 @@ public class Property{
         stateOfProperty= state; 
     }
 
-    public Property(String t, int nBed, int nBath, boolean f, String q, String name, String state, String regDate){
+    public Property(String t, String addr, int nBed, int nBath, boolean f, String q, String name, String state, String regDate){
         type = t;
+        address = addr;
         numBaths = nBath;
         numBeds = nBed;
         furnished = f;
@@ -42,6 +45,11 @@ public class Property{
     public String getType(){
         return type;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
     public int getNumBath(){
         return numBaths;
     }

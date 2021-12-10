@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS PROPERTY;
 CREATE TABLE PROPERTY (
 	PropertyID		int NOT NULL auto_increment,
 	Type			varchar(25) not null default 'House',
+    Address         varchar(25) unique not null,
 	Bedrooms		int not null default 0,
     Bathrooms		int not null default 0,
     Furnished		bool not null default false,
@@ -34,7 +35,7 @@ CREATE TABLE SEARCH_CRITERIA (
     Type			varchar(25) not null default 'House',
 	Bedrooms		int not null default 0,
     Bathrooms		int not null default 0,
-    Furnished		boolean not null default false,
+    Furnished		bool not null default false,
     Quadrant		varchar(25) not null default 'NW',
     primary key (Username, Type, Bedrooms, Bathrooms, Furnished, Quadrant),
     foreign key (Username) references USERS(Username)

@@ -50,10 +50,10 @@ public class ViewPropertiesController implements GUIController{
 		LinkedList<Object[]> newArray = new LinkedList<Object[]>();
 		for(Object[] row : oldArray) {
 			if(type.equals("Any") || type.equalsIgnoreCase((String)row[0])) 
-				if(bed == null || bed.equals(row[1])) 
-					if(bath == null || bath.equals(row[2])) 
-						if(furnished.equals(row[3]))
-							if(quadrant.equals("Any") || quadrant.equalsIgnoreCase((String)row[4]))
+				if(bed == null || bed.equals(row[2])) 
+					if(bath == null || bath.equals(row[3])) 
+						if(furnished.equals(row[4]))
+							if(quadrant.equals("Any") || quadrant.equalsIgnoreCase((String)row[5]))
 								newArray.add(row);
 		}
 		Object[][] output = new Object[newArray.size()][];

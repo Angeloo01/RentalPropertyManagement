@@ -35,6 +35,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
 	String[] cityQuadrant = {"SW", "NW", "NE", "SE"};
 	
 	JLabel typeLabel = new JLabel("Type:");
+	JLabel addressLabel = new JLabel("Address:");
 	JLabel bedLabel = new JLabel("Number of bedrooms:");
 	JLabel bathLabel = new JLabel("Number of bathrooms:");
 	JLabel furnishedLabel = new JLabel("Furnished:");
@@ -42,6 +43,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
 	
 	JComboBox<String> typeList = new JComboBox<String>(houseTypes);
 	JComboBox<String> quadrantList = new JComboBox<String>(cityQuadrant);
+	JTextField addressTF = new JTextField("");
 	JTextField bedTF = new JTextField("0");
 	JTextField bathTF = new JTextField("0");
 	JCheckBox furnished = new JCheckBox("");
@@ -66,11 +68,11 @@ public class LandlordPropertiesGUI extends GUIWindow{
     }
     
     public LandlordPropertiesGUI(GUIWindow prev) {
-    	this(800, 600, prev);
+    	this(1000, 600, prev);
     }
     
     public void setTableModel(Object[][] data) {
-    	String[] columnNames = { "Type", "Bedrooms", "Bathrooms", "Furnished", "City Quadrant", "Status" };
+    	String[] columnNames = { "Type", "Address", "Bedrooms", "Bathrooms", "Furnished", "City Quadrant", "Status" };
 		DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
 		    /**
 			 * 
@@ -122,7 +124,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
 				JOptionPane.showMessageDialog(this, "Invalid number of baths");
 				return;
 			}
-			if(((LandlordPropertiesController)controller).registerProperty(String.valueOf(typeList.getSelectedItem()), numBeds, numBaths, 
+			if(((LandlordPropertiesController)controller).registerProperty(String.valueOf(typeList.getSelectedItem()), addressTF.getText(), numBeds, numBaths, 
 																Boolean.valueOf(furnished.isSelected()), String.valueOf(quadrantList.getSelectedItem()))) {
 				JOptionPane.showMessageDialog(this, "Property has been registered");
 			}
@@ -163,30 +165,33 @@ public class LandlordPropertiesGUI extends GUIWindow{
     	layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, contentPane);
 		
     	//register property
-    	JPanel searchPanel = new JPanel(new FlowLayout());
-    	searchPanel.setPreferredSize(new Dimension(getWidth(), 100));
-    	searchPanel.add(typeLabel);
-    	searchPanel.add(typeList);
-    	searchPanel.add(bedLabel);
+    	JPanel registerPanel = new JPanel(new FlowLayout());
+    	registerPanel.setPreferredSize(new Dimension(getWidth(), 100));
+    	registerPanel.add(typeLabel);
+    	registerPanel.add(typeList);
+		registerPanel.add(addressLabel);
+		registerPanel.add(addressTF);
+		addressTF.setColumns(15);
+    	registerPanel.add(bedLabel);
     	bedTF.setColumns(3);
-    	searchPanel.add(bedTF);
+    	registerPanel.add(bedTF);
     	bathTF.setColumns(3);
-    	searchPanel.add(bathLabel);
-    	searchPanel.add(bathTF);
-    	searchPanel.add(furnishedLabel);
-    	searchPanel.add(furnished);
-    	searchPanel.add(quadrantLabel);
-    	searchPanel.add(quadrantList);
-    	searchPanel.add(registerButton);
+    	registerPanel.add(bathLabel);
+    	registerPanel.add(bathTF);
+    	registerPanel.add(furnishedLabel);
+    	registerPanel.add(furnished);
+    	registerPanel.add(quadrantLabel);
+    	registerPanel.add(quadrantList);
+    	registerPanel.add(registerButton);
     	
-    	contentPane.add(searchPanel);
-    	layout.putConstraint(SpringLayout.WEST, searchPanel, 0, SpringLayout.WEST, contentPane);
-    	layout.putConstraint(SpringLayout.NORTH, searchPanel, (int)scrollPane.getMaximumSize().getHeight()+10, SpringLayout.NORTH, scrollPane);
+    	contentPane.add(registerPanel);
+    	layout.putConstraint(SpringLayout.WEST, registerPanel, 0, SpringLayout.WEST, contentPane);
+    	layout.putConstraint(SpringLayout.NORTH, registerPanel, (int)scrollPane.getMaximumSize().getHeight()+10, SpringLayout.NORTH, scrollPane);
     	
     	
     	//change state
     	JPanel buttonPanel = new JPanel(new FlowLayout());
-    	buttonPanel.setPreferredSize(new Dimension(getWidth(), 100));
+    	buttonPanel.setPreferredSize(new Dimension(getWidth(), 150));
     	buttonPanel.add(feeLabel);
     	buttonPanel.add(state);
     	buttonPanel.add(changeButton);
@@ -194,7 +199,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
 
     	contentPane.add(buttonPanel);
     	layout.putConstraint(SpringLayout.WEST, buttonPanel, 0, SpringLayout.WEST, contentPane);
-    	layout.putConstraint(SpringLayout.NORTH, buttonPanel, (int)searchPanel.getPreferredSize().getHeight() + 10, SpringLayout.NORTH, searchPanel);
+    	layout.putConstraint(SpringLayout.NORTH, buttonPanel, (int)registerPanel.getPreferredSize().getHeight() + 10, SpringLayout.NORTH, registerPanel);
 		
 	}
 

@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import Entity.*;;
+import Entity.*;
 
 public class DatabaseConnectivity {
     //Data to create MySQL connection:
@@ -242,18 +242,19 @@ public class DatabaseConnectivity {
 //int i, String t, int nBed, int nBath, boolean f, String q, String name, String state
     public static boolean addProperty(Property property) {
     	System.out.println(property.getLandlordName());
-        String query = "INSERT INTO property (type, bedrooms, bathrooms,furnished, quadrant, landlord, date_registered, status) VALUES (?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO property (type, address, bedrooms, bathrooms,furnished, quadrant, landlord, date_registered, status) VALUES (?,?,?,?,?,?,?,?,?)";
     	try {
 			PreparedStatement stm = databaseConnection.prepareStatement(query);
 			//stm.setInt(1, property.getID());
 			stm.setString(1, property.getType());
-            stm.setInt(2, property.getNumBed());
-			stm.setInt(3, property.getNumBath());
-            stm.setBoolean(4, property.getFurnished());
-            stm.setString(5, property.getQuadrant());
-            stm.setString(6, property.getLandlordName());
-			stm.setDate(7, Date.valueOf(property.getRegisterDate()));
-            stm.setString(8, property.getStateOfProperty());
+			stm.setString(2, property.getAddress());
+            stm.setInt(3, property.getNumBed());
+			stm.setInt(4, property.getNumBath());
+            stm.setBoolean(5, property.getFurnished());
+            stm.setString(6, property.getQuadrant());
+            stm.setString(7, property.getLandlordName());
+			stm.setDate(8, Date.valueOf(property.getRegisterDate()));
+            stm.setString(9, property.getStateOfProperty());
 
 			int rowCount = stm.executeUpdate();
 			stm.close();
@@ -290,15 +291,15 @@ public class DatabaseConnectivity {
 				//else
 				int propertyid = results.getInt("propertyid");
 				String type = results.getString("type");
+				String address = results.getString("address");
 				int bedrooms = results.getInt("bedrooms");
 				int bathrooms = results.getInt("bathrooms");
                 boolean furnished = results.getBoolean("furnished");
                 String quadrant = results.getString("quadrant");
                 String landlord = results.getString("landlord");
 				String regDate = results.getDate("date_registered").toString();
-				String rentDate = results.getDate("date_rented").toString();
                 String status = results.getString("status");
-				list.add(new Property(propertyid, type, bedrooms, bathrooms, furnished, quadrant, landlord, status, regDate));
+				list.add(new Property(propertyid, type, address, bedrooms, bathrooms, furnished, quadrant, landlord, status, regDate));
 			}
 			
 		} catch (SQLException e) {
@@ -372,6 +373,80 @@ public class DatabaseConnectivity {
 		}
 	}
 
+	public static int getNumPropertiesListed(int period) {
+		//period is a number of days before the current date that the returned properties were listed in
+		//86400000 is the number of milliseconds in 24 hours
+		Date periodStartDate = new Date(System.currentTimeMillis()-period*86400000);
+		String sql = "SELECT COUNT(*) FROM property WHERE date_registered > '" + periodStartDate.toString() + "'";
+		int numProps = 0;
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			numProps = res.getInt("COUNT(*)");
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("Error retreiving number of properties listed in a period from DB");
+		}
+		return numProps;
+	}
 
+	public static int getNumPropertiesRented(int period) {
+		//period is a number of days before the current date that the returned properties were listed in
+		//86400000 is the number of milliseconds in 24 hours
+		Date periodStartDate = new Date(System.currentTimeMillis()-period*86400000);
+		String sql = "SELECT COUNT(*) FROM property WHERE status = 'rented' AND date_rented > '" + periodStartDate.toString() + "'";
+		int numProps = 0;
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			numProps = res.getInt("COUNT(*)");
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("Error retreiving number of properties rented in a period from DB");
+		}
+		return numProps;
+	}
 
+	public static int getNumActiveProperties() {
+		String sql = "SELECT COUNT(*) FROM property WHERE status = 'active'";
+		int numProps = 0;
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			numProps = res.getInt("COUNT(*)");
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("Error retreiving number of active properties from DB");
+		}
+		return numProps;
+	}
+	
+	public static ArrayList<Property> getRentedProperties(int period) {
+		//period is a number of days before the current date that the returned properties were listed in
+		//86400000 is the number of milliseconds in 24 hours
+		Date periodStartDate = new Date(System.currentTimeMillis()-period*86400000);
+		String sql = "SELECT * FROM property WHERE status = 'rented' AND date_rented > '" + periodStartDate.toString() + "'";
+		ArrayList<Property> propList = new ArrayList<Property>();
+		try {
+			Statement stmt = databaseConnection.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+			while(res.next()) {
+				int propertyid = res.getInt("propertyid");
+				String type = res.getString("type");
+				String address = res.getString("address");
+				int bedrooms = res.getInt("bedrooms");
+				int bathrooms = res.getInt("bathrooms");
+                boolean furnished = res.getBoolean("furnished");
+                String quadrant = res.getString("quadrant");
+                String landlord = res.getString("landlord");
+				String regDate = res.getDate("date_registered").toString();
+                String status = res.getString("status");
+				propList.add(new Property(propertyid, type, address, bedrooms, bathrooms, furnished, quadrant, landlord, status, regDate));
+			}
+		} catch(SQLException e) {
+			System.err.println("Error retreiving properties rented in a period from DB");
+		}
+
+		return propList;
+	}
 }

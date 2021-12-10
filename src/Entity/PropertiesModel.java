@@ -6,7 +6,7 @@ import java.util.List;
 import Database.DatabaseConnectivity;
 
 public class PropertiesModel {
-	String[] columnNames = { "Type", "Bedrooms", "Bathrooms", "Furnished", "City Quadrant" };
+	String[] columnNames = { "Type", "Address", "Bedrooms", "Bathrooms", "Furnished", "City Quadrant" };
 	Object[][] data;
 	List<Property> list;
 	public PropertiesModel(boolean activeOnly, List<Property> list) {
@@ -28,11 +28,11 @@ public class PropertiesModel {
 				if(prop.getStateOfProperty().equalsIgnoreCase("active")) {
 					//System.out.println(prop.getType());
 					//System.out.println(prop.getStateOfProperty());
-					temp.add(new Object[] {prop.getType(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getID(), prop.getLandlordName(), prop.getStateOfProperty()});
+					temp.add(new Object[] {prop.getType(), prop.getAddress(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getID(), prop.getLandlordName(), prop.getStateOfProperty()});
 				}
 			}
 			else
-				temp.add(new Object[] {prop.getType(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getID(), prop.getLandlordName(), prop.getStateOfProperty()});
+				temp.add(new Object[] {prop.getType(), prop.getAddress(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getID(), prop.getLandlordName(), prop.getStateOfProperty()});
 			
 		}
 		data = temp.toArray(new Object[temp.size()][]);

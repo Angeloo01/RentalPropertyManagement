@@ -1,6 +1,6 @@
 package Controller;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import Database.DatabaseConnectivity;
@@ -36,7 +36,7 @@ public class LandlordPropertiesController implements GUIController{
 		LinkedList<Object[]> model = new LinkedList<Object[]>();
 		for(Property prop : properties) {
 			if(prop.getLandlordName().equalsIgnoreCase(landlord.getUsername())) {
-				model.add(new Object[] {prop.getType(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getStateOfProperty(), prop.getID() });
+				model.add(new Object[] {prop.getType(), prop.getAddress(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getStateOfProperty(), prop.getID()});
 			}
 		}
 		props = model.toArray(new Object[model.size()][]);
@@ -50,13 +50,13 @@ public class LandlordPropertiesController implements GUIController{
 	
 	public boolean changePropertyState(int selectedRow, String state) {
 		System.out.println(state);
-		boolean changed = DatabaseConnectivity.changePropertyState((Integer)props[selectedRow][6], state);
+		boolean changed = DatabaseConnectivity.changePropertyState((Integer)props[selectedRow][7], state);
 		updatePropertyModel();
 		return changed;
 	}
 	
-	public boolean registerProperty(String type, int bed, int bath, boolean furnished, String quad) {
-		Property property = new Property(type, bed, bath, furnished, quad, landlord.getUsername(), "registered", (new Date(System.currentTimeMillis())).toString());
+	public boolean registerProperty(String type, String address, int bed, int bath, boolean furnished, String quad) {
+		Property property = new Property(type, address, bed, bath, furnished, quad, landlord.getUsername(), "registered", (new Date(System.currentTimeMillis())).toString());
 		boolean added = DatabaseConnectivity.addProperty(property);
 		updatePropertyModel();
 		return added;
