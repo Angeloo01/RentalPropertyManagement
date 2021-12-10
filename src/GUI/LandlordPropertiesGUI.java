@@ -48,6 +48,8 @@ public class LandlordPropertiesGUI extends GUIWindow{
 	JTextField bathTF = new JTextField("0");
 	JCheckBox furnished = new JCheckBox("");
 	
+	JPanel registerPanel = new JPanel(new FlowLayout());
+	
 	public LandlordPropertiesGUI(int x, int y) {
     	super();
     	setTitle("Properties");
@@ -165,7 +167,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
     	layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, contentPane);
 		
     	//register property
-    	JPanel registerPanel = new JPanel(new FlowLayout());
+    	//JPanel registerPanel = new JPanel(new FlowLayout());
     	registerPanel.setPreferredSize(new Dimension(getWidth(), 100));
     	registerPanel.add(typeLabel);
     	registerPanel.add(typeList);
@@ -199,8 +201,12 @@ public class LandlordPropertiesGUI extends GUIWindow{
 
     	contentPane.add(buttonPanel);
     	layout.putConstraint(SpringLayout.WEST, buttonPanel, 0, SpringLayout.WEST, contentPane);
-    	layout.putConstraint(SpringLayout.NORTH, buttonPanel, (int)registerPanel.getPreferredSize().getHeight() + 10, SpringLayout.NORTH, registerPanel);
+    	layout.putConstraint(SpringLayout.NORTH, buttonPanel, (int)(scrollPane.getMaximumSize().getHeight()+10+registerPanel.getPreferredSize().getHeight()) + 10, SpringLayout.NORTH, scrollPane);
 		
+	}
+	
+	public void removeRegisterPanel() {
+		getContentPane().remove(registerPanel);
 	}
 
 	@Override

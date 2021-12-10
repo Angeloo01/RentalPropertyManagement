@@ -41,8 +41,8 @@ public class ViewPropertiesController implements GUIController{
 	}
 	public User getLandlord(int index) {
 		Object[] row = model.getData()[index];
-		System.out.println(row[6]);
-		return ListOfUsers.getInstance().getUser((String)row[6]);
+		System.out.println(row[7]);
+		return ListOfUsers.getInstance().getUser((String)row[7]);
 	}
 	
 	public void filterModel(String type, Integer bed, Integer bath, Boolean furnished, String quadrant) {
