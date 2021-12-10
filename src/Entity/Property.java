@@ -14,6 +14,21 @@ public class Property{
     private String registerDate;
     private String rentDate;
 
+
+    public Property(int i, String t, String addr, int nBed, int nBath, boolean f, String q, String name, String state, String regDate, String rentDate){
+        id = i;
+        type = t;
+        address = addr;
+        numBaths = nBath;
+        numBeds = nBed;
+        furnished = f;
+        quadrant = q;
+        landlordName=name;
+        stateOfProperty= state; 
+        registerDate = regDate;
+        this.rentDate = rentDate;
+    }
+
     public Property(int i, String t, String addr, int nBed, int nBath, boolean f, String q, String name, String state, String regDate){
         id = i;
         type = t;
@@ -24,6 +39,7 @@ public class Property{
         quadrant = q;
         landlordName=name;
         stateOfProperty= state; 
+        registerDate = regDate;
     }
 
     public Property(String t, String addr, int nBed, int nBath, boolean f, String q, String name, String state, String regDate){

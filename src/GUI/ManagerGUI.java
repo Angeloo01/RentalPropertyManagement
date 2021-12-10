@@ -3,10 +3,14 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
+import java.sql.Date;
+
 import javax.swing.*;
 
 import Controller.LoginController;
 import Controller.ManagerGUIController;
+import Entity.Property;
+import Entity.SummaryReport;
 
 public class ManagerGUI extends GUIWindow {
 
@@ -74,10 +78,14 @@ public class ManagerGUI extends GUIWindow {
             }
 		}
 		else if(e.getSource() == summButton) {
-			((ManagerGUIController)controller).getSummaryReport();
+			String inp = JOptionPane.showInputDialog("Enter a period");
+			int period = Integer.valueOf(inp);
+			SummaryReport report = ((ManagerGUIController)controller).getSummaryReport(period);
+			new SummaryReportGUI(this, report);
+			dispose();
 		}
 		else if(e.getSource() == dbButton) {
-			((ManagerGUIController)controller).getSummaryReport();
+			//((ManagerGUIController)controller).getSummaryReport();
 		}
 		else if(e.getSource() == previousButton) {
 			if(prev == null) {

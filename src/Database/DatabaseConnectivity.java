@@ -382,6 +382,7 @@ public class DatabaseConnectivity {
 		try {
 			Statement stmt = databaseConnection.createStatement();
 			ResultSet res = stmt.executeQuery(sql);
+			res.next();
 			numProps = res.getInt("COUNT(*)");
 			stmt.close();
 		} catch (SQLException e) {
@@ -399,6 +400,7 @@ public class DatabaseConnectivity {
 		try {
 			Statement stmt = databaseConnection.createStatement();
 			ResultSet res = stmt.executeQuery(sql);
+			res.next();
 			numProps = res.getInt("COUNT(*)");
 			stmt.close();
 		} catch (SQLException e) {
@@ -413,6 +415,7 @@ public class DatabaseConnectivity {
 		try {
 			Statement stmt = databaseConnection.createStatement();
 			ResultSet res = stmt.executeQuery(sql);
+			res.next();
 			numProps = res.getInt("COUNT(*)");
 			stmt.close();
 		} catch (SQLException e) {
@@ -440,8 +443,9 @@ public class DatabaseConnectivity {
                 String quadrant = res.getString("quadrant");
                 String landlord = res.getString("landlord");
 				String regDate = res.getDate("date_registered").toString();
+				String rentDate = res.getDate("date_rented").toString();
                 String status = res.getString("status");
-				propList.add(new Property(propertyid, type, address, bedrooms, bathrooms, furnished, quadrant, landlord, status, regDate));
+				propList.add(new Property(propertyid, type, address, bedrooms, bathrooms, furnished, quadrant, landlord, status, regDate, rentDate));
 			}
 		} catch(SQLException e) {
 			System.err.println("Error retreiving properties rented in a period from DB");

@@ -38,5 +38,17 @@ public class PropertiesModel {
 		data = temp.toArray(new Object[temp.size()][]);
 	}
 
+	public Object[][] getColumns(LinkedList<Integer> cols) {
+		LinkedList<Object[]> temp = new LinkedList<Object[]>();
+		for(Object [] o : data) {
+			LinkedList<Object> row = new LinkedList<Object>();
+			for(int ind : cols) {
+				row.push(o[ind]);
+			}
+			temp.push(row.toArray());
+		}
+		return temp.toArray(new Object[temp.size()][]);
+	}
+
 	
 }

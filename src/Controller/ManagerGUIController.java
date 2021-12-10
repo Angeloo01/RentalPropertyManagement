@@ -2,6 +2,7 @@ package Controller;
 
 import Database.DatabaseConnectivity;
 import Entity.FeeModel;
+import Entity.SummaryReport;
 import GUI.*;
 
 
@@ -42,8 +43,8 @@ public class ManagerGUIController implements GUIController {
 		return DatabaseConnectivity.changeFee();
 	}
 	
-	public void getSummaryReport() {
-		//change return type
+	public SummaryReport getSummaryReport(int period) {
+		return new SummaryReport(period);
 	}
 	
 	public void viewDatabase() {
