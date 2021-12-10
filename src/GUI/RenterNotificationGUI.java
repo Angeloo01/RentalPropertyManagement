@@ -60,7 +60,7 @@ public class RenterNotificationGUI extends GUIWindow{
     }
 	
 	public RenterNotificationGUI(GUIWindow prev) {
-    	this(800, 600);
+    	this(800, 800);
     	this.prev = prev;
     }
 	
@@ -87,13 +87,15 @@ public class RenterNotificationGUI extends GUIWindow{
 	}
  
     public void addComponentsToContainer() {
-    	JPanel mainPanel = new JPanel();
-    	mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-    	setContentPane(mainPanel);
-    	mainPanel.add(Box.createHorizontalStrut(5));
+    	JPanel contentPane = new JPanel();
+    	SpringLayout layout = new SpringLayout();
+		contentPane.setLayout(layout);
+    	setContentPane(contentPane);
+    	//mainPanel.add(Box.createHorizontalStrut(5));
     	
     	//search
     	JPanel searchPanel = new JPanel(new FlowLayout());
+    	//searchPanel.setMaximumSize(new Dimension(getWidth(), 100));
     	searchPanel.add(typeLabel);
     	searchPanel.add(typeList);
     	searchPanel.add(bedLabel);
@@ -108,21 +110,32 @@ public class RenterNotificationGUI extends GUIWindow{
     	searchPanel.add(quadrantList);
     	searchPanel.add(searchButton);
     	searchPanel.add(addSearchButton);
-    	mainPanel.add(searchPanel);
+    	
+    	searchPanel.setMaximumSize(new Dimension(getWidth(), 75));
+    	searchPanel.setPreferredSize(new Dimension(getWidth(), 75));
+    	
+    	contentPane.add(searchPanel);
+    	layout.putConstraint(SpringLayout.WEST, searchPanel, 0, SpringLayout.WEST, contentPane);
+    	layout.putConstraint(SpringLayout.NORTH, searchPanel, 0, SpringLayout.NORTH, contentPane);
     	
     	//table of properties
     	JScrollPane scrollPane = new JScrollPane(table);
-    	scrollPane.setMaximumSize(new Dimension(getWidth(), (int)(getHeight()*.6f)));
-    	scrollPane.setPreferredSize(new Dimension(getWidth(), (int)(getHeight()*.6f)));
+    	scrollPane.setMaximumSize(new Dimension(getWidth(), (int)(getHeight()*.4f)));
+    	scrollPane.setPreferredSize(new Dimension(getWidth(), (int)(getHeight()*.4f)));
     	table.setFillsViewportHeight(true);
     	
-    	mainPanel.add(scrollPane);
+    	contentPane.add(scrollPane);
+    	layout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, contentPane);
+    	layout.putConstraint(SpringLayout.NORTH, scrollPane, 10, SpringLayout.SOUTH, searchPanel);
     	
     	//buttons
     	JPanel buttonPanel = new JPanel(new FlowLayout());
     	buttonPanel.add(selectButton);
     	buttonPanel.add(previousButton);
-    	mainPanel.add(buttonPanel);
+    	
+    	contentPane.add(buttonPanel);
+    	layout.putConstraint(SpringLayout.WEST, buttonPanel, 0, SpringLayout.WEST, contentPane);
+    	layout.putConstraint(SpringLayout.NORTH, buttonPanel, 10, SpringLayout.SOUTH, scrollPane);
     }
  
     public void addActionEvent() {
