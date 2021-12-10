@@ -375,6 +375,7 @@ public class DatabaseConnectivity {
 	
 	public static boolean removeUserSearchCriteria(String username, String type, int beds, int baths, boolean furnished, String quadrant) {
 		String sql = "DELETE FROM search_criteria WHERE username = ? AND type = ? AND bedrooms = ? AND bathrooms = ? AND furnished = ? AND quadrant = ?";
+		
 		try {
 			PreparedStatement stm = databaseConnection.prepareStatement(sql);
 			stm.setString(1, username);

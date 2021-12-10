@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
+import Controller.LandlordPropertiesController;
 import Controller.LoginController;
 import Controller.ManagerGUIController;
 
@@ -20,6 +21,7 @@ public class ManagerGUI extends GUIWindow {
 	JTextField feeChargeTF = new JTextField();
 	JTextField feePeriodTF = new JTextField();
 	JButton feeButton = new JButton("Edit Fee");
+	JButton propButton = new JButton("Property Status");
 	
 	JButton summButton = new JButton("Request Summary");
 	JButton dbButton = new JButton("Display Database");
@@ -73,6 +75,10 @@ public class ManagerGUI extends GUIWindow {
 	            	JOptionPane.showMessageDialog(this, "Error in setting fee");
             }
 		}
+		else if(e.getSource() == propButton) {
+			new LandlordPropertiesController(new LandlordPropertiesGUI(this), null);
+			setVisible(false);
+		}
 		else if(e.getSource() == summButton) {
 			((ManagerGUIController)controller).getSummaryReport();
 		}
@@ -108,6 +114,7 @@ public class ManagerGUI extends GUIWindow {
     	JPanel buttonPanel2 = new JPanel(new FlowLayout());
     	JPanel buttonPanel3 = new JPanel(new FlowLayout());
     	JPanel buttonPanel4 = new JPanel(new FlowLayout());
+    	JPanel buttonPanel5 = new JPanel(new FlowLayout());
     	
     	feePanel1.setMaximumSize(panelSize);
     	feePanel2.setMaximumSize(panelSize);
@@ -115,6 +122,7 @@ public class ManagerGUI extends GUIWindow {
     	buttonPanel2.setMaximumSize(panelSize);
     	buttonPanel3.setMaximumSize(panelSize);
     	buttonPanel4.setMaximumSize(panelSize);
+    	buttonPanel5.setMaximumSize(panelSize);
     	
     	mainPanel.add(Box.createVerticalStrut(25));
     	
@@ -142,8 +150,14 @@ public class ManagerGUI extends GUIWindow {
     	mainPanel.add(buttonPanel3);
     	
     	mainPanel.add(Box.createVerticalStrut(10));
+    	buttonPanel5.add(propButton);
+    	mainPanel.add(buttonPanel5);
+    	
+    	mainPanel.add(Box.createVerticalStrut(10));
     	buttonPanel4.add(previousButton);
     	mainPanel.add(buttonPanel4);
+    	
+    	
     	
 
 	}
@@ -154,6 +168,7 @@ public class ManagerGUI extends GUIWindow {
 		summButton.addActionListener(this);
 		dbButton.addActionListener(this);
 		previousButton.addActionListener(this);
+		propButton.addActionListener(this);
 
 	}
 	

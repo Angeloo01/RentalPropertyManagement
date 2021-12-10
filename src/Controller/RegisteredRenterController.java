@@ -48,6 +48,13 @@ public class RegisteredRenterController implements GUIController{
 	public User getUser() {
 		return renter;
 	}
+	
+	public void setSearchModel(RenterNotificationGUI gui) {
+		String[] column = {"Type", "beds","baths","furnished", "quadrant"};
+		Object[][] searchModel = model.getInbox().getSearchModel();
+		gui.setSearchModel(column, searchModel);
+		
+	}
 
 	
 }

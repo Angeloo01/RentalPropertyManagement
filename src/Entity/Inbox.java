@@ -1,6 +1,8 @@
 package Entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import Database.DatabaseConnectivity;
 
@@ -44,6 +46,15 @@ public class Inbox implements Observer {
         return matchingProperties;
     }
     
+    public Object[][] getSearchModel() {
+    	LinkedList<Object[]> temp = new LinkedList<Object[]>();
+    	for(SearchCriteria search : searchCriteria) {
+        	temp.add(new Object[] {search.getType(), search.getBedrooms(), search.getBathrooms(), search.getFurnished(), search.getQuadrant()});
+            
+        }
+        return temp.toArray(new Object[temp.size()][]);
+    }
+    
     public void addSearchCriteria(String type, int beds, int baths, boolean furnished, String quadrant) {
 
         if(DatabaseConnectivity.addUserSearchCriteria(user.getUsername(), type, beds, baths, furnished, quadrant)) {
@@ -59,7 +70,22 @@ public class Inbox implements Observer {
 	    	System.out.println("removing search");
 	        searchCriteria.clear();
 	        searchCriteria = DatabaseConnectivity.getUserSearchCriteria(user.getUsername());
+	        removeMatchingProperty(type, beds, baths, furnished, quadrant);
         }
 
+    }
+    
+    public void removeMatchingProperty(String type, int beds, int baths, boolean furnished, String quadrant) {
+    	Iterator<Property> i = matchingProperties.iterator();
+        
+        while (i.hasNext()) {
+           Property prop = i.next();
+//           System.out.println(prop.getType().equalsIgnoreCase(type) && prop.getNumBath() == baths && prop.getNumBed() == beds &&
+//        		   prop.getFurnished() == furnished && prop.getQuadrant().equalsIgnoreCase(quadrant));
+           if (prop.getType().equalsIgnoreCase(type) && prop.getNumBath() == baths && prop.getNumBed() == beds &&
+        		   prop.getFurnished() == furnished && prop.getQuadrant().equalsIgnoreCase(quadrant)) {
+              i.remove();
+           }
+        }
     }
 }

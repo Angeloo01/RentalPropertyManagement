@@ -34,9 +34,18 @@ public class LandlordPropertiesController implements GUIController{
 		
 		List<Property> properties = ListOfProperty.getInstance().getProperies();
 		LinkedList<Object[]> model = new LinkedList<Object[]>();
-		for(Property prop : properties) {
-			if(prop.getLandlordName().equalsIgnoreCase(landlord.getUsername())) {
+		if(landlord == null) {
+			for(Property prop : properties) {
+				
 				model.add(new Object[] {prop.getType(), prop.getAddress(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getStateOfProperty(), prop.getID()});
+				
+			}
+		}
+		else {
+			for(Property prop : properties) {
+				if(prop.getLandlordName().equalsIgnoreCase(landlord.getUsername())) {
+					model.add(new Object[] {prop.getType(), prop.getAddress(), prop.getNumBed(), prop.getNumBath(), prop.getFurnished(), prop.getQuadrant(), prop.getStateOfProperty(), prop.getID()});
+				}
 			}
 		}
 		props = model.toArray(new Object[model.size()][]);

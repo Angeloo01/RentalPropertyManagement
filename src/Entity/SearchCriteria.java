@@ -34,4 +34,30 @@ public class SearchCriteria {
     public String toString() {
         return type + " " + bedrooms + " " + bathrooms + " " + quadrant; 
     }
+
+	public String getType() {
+		return type;
+	}
+
+	public int getBedrooms() {
+		return bedrooms;
+	}
+
+	public int getBathrooms() {
+		return bathrooms;
+	}
+
+	public boolean isFurnished() {
+		return furnished;
+	}
+
+	public String getQuadrant() {
+		return quadrant;
+	}
+	
+	public boolean getFurnished() {
+		return furnished;
+	}
+    
+    
 }

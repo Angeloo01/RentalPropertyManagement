@@ -81,7 +81,9 @@ public class RegisteredRenterGUI extends GUIWindow {
 			ListOfProperty.getInstance().registerObserver(((RegisteredRenterController)controller).getInbox());
 			PropertiesModel pModel = new PropertiesModel(true, (List<Property>)((RegisteredRenterController)controller).getMatchingProperties());
 			//pModel.getData()[0][0] = "House";
-	    	new ViewPropertiesController (new RenterNotificationGUI(this), pModel, user);
+			RenterNotificationGUI renter = new RenterNotificationGUI(this);
+	    	new ViewPropertiesController (renter, pModel, user);
+	    	((RegisteredRenterController)controller).setSearchModel(renter);
 	    	setVisible(false);
 		}
     	

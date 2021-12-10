@@ -21,9 +21,11 @@ public class RenterNotificationGUI extends GUIWindow{
 	//view
 	//Container container = getContentPane();
 	JTable table = new JTable();
+	JTable searchCrit = new JTable();
 	JButton selectButton = new JButton("Select Property");
 	JButton searchButton = new JButton("Search");
 	JButton addSearchButton = new JButton("Add Search Criteria");
+	JButton removeButton = new JButton("Remove Search Criteria");
 	
 	String[] houseTypes = {"Any", "Apartment", "Attached house", "House", "Townhouse"};
 	String[] cityQuadrant = {"Any", "SW", "NW", "NE", "SE"};
@@ -79,10 +81,28 @@ public class RenterNotificationGUI extends GUIWindow{
 		};
 		table.setModel(tableModel);
 	}
+	
+	public void setSearchModel(String[] columnNames, Object[][] data) {
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		searchCrit.setModel(tableModel);
+	}
 
 	private void setCompProperty() {
 		setTableModel(null, null);
 		table.getTableHeader().setReorderingAllowed(false);
+		setSearchModel(null, null);
+		searchCrit.getTableHeader().setReorderingAllowed(false);
 		
 	}
  
@@ -136,6 +156,21 @@ public class RenterNotificationGUI extends GUIWindow{
     	contentPane.add(buttonPanel);
     	layout.putConstraint(SpringLayout.WEST, buttonPanel, 0, SpringLayout.WEST, contentPane);
     	layout.putConstraint(SpringLayout.NORTH, buttonPanel, 10, SpringLayout.SOUTH, scrollPane);
+    	
+    	//table of properties
+    	JScrollPane searchScroll = new JScrollPane(searchCrit);
+    	searchScroll.setMaximumSize(new Dimension(getWidth(), (int)(getHeight()*.2f)));
+    	searchScroll.setPreferredSize(new Dimension(getWidth(), (int)(getHeight()*.2f)));
+    	searchCrit.setFillsViewportHeight(true);
+    	
+    	contentPane.add(searchScroll);
+    	layout.putConstraint(SpringLayout.WEST, searchScroll, 0, SpringLayout.WEST, contentPane);
+    	layout.putConstraint(SpringLayout.NORTH, searchScroll, 10, SpringLayout.SOUTH, buttonPanel);
+    	
+    	//remove button
+    	contentPane.add(removeButton);
+    	layout.putConstraint(SpringLayout.WEST, removeButton, 10, SpringLayout.WEST, contentPane);
+    	layout.putConstraint(SpringLayout.NORTH, removeButton, 10, SpringLayout.SOUTH, searchScroll);
     }
  
     public void addActionEvent() {
@@ -143,6 +178,7 @@ public class RenterNotificationGUI extends GUIWindow{
         previousButton.addActionListener(this);
         searchButton.addActionListener(this);
         addSearchButton.addActionListener(this);
+        removeButton.addActionListener(this);
     }
 
 	@Override
@@ -160,7 +196,7 @@ public class RenterNotificationGUI extends GUIWindow{
 				}
 			}
 		}
-		if(e.getSource() == addSearchButton) {
+		else if(e.getSource() == addSearchButton) {
 			if(typeList.getSelectedItem().equals("Any") || quadrantList.getSelectedItem().equals("Any")) {
 				JOptionPane.showMessageDialog(this, "Invalid search criteria");
 				return;
@@ -176,6 +212,22 @@ public class RenterNotificationGUI extends GUIWindow{
 			}
 			((RegisteredRenterController)prev.getController()).addSearchCriteria(String.valueOf(typeList.getSelectedItem()), numBeds, numBaths, 
 					Boolean.valueOf(furnished.isSelected()), String.valueOf(quadrantList.getSelectedItem()));
+			((RegisteredRenterController)prev.getController()).setSearchModel(this);
+		}
+		else if(e.getSource() == removeButton) {
+			int rowIn;
+			if((rowIn = searchCrit.getSelectedRow()) >= 0) {
+				String type = (String) searchCrit.getModel().getValueAt(rowIn, 0);
+				Integer numBeds = (Integer) searchCrit.getModel().getValueAt(rowIn, 1);
+				Integer numBaths = (Integer) searchCrit.getModel().getValueAt(rowIn, 2);
+				Boolean furn = (Boolean) searchCrit.getModel().getValueAt(rowIn, 3);
+				String quadrant = (String) searchCrit.getModel().getValueAt(rowIn, 4);
+				((RegisteredRenterController)prev.getController()).removeSearchCriteria(type, numBeds, numBaths, furn, quadrant);
+				((RegisteredRenterController)prev.getController()).setSearchModel(this);
+				
+				
+			}
+			
 		}
 		else if(e.getSource() == previousButton) {
 			if(prev == null) {
