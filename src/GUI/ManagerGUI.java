@@ -192,23 +192,9 @@ public class ManagerGUI extends GUIWindow {
 		propButton.addActionListener(this);
 
 	}
-	
+	// shows the fee
 	public void showFee(int amount, int period) {
 		feeChargeTF.setText(String.valueOf(amount));
 		feePeriodTF.setText(String.valueOf(period));
 	}
-	
-//	public static void main(String[] args) {
-//        //LoginGUI frame = new LoginGUI(360, 600);
-//    	ListOfUsers users = ListOfUsers.getInstance();
-//    	users.add(new User("admin", "admin", 0));
-//    	users.add(new User("user", "user", 2));
-//    	SwingUtilities.invokeLater(new Runnable() {
-//    		public void run() {
-//    			ManagerGUI login = new ManagerGUI(null);
-//    		}
-//    	});
-//        
-//    }
-
 }

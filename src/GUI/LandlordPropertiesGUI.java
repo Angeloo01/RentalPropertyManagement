@@ -72,7 +72,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
     public LandlordPropertiesGUI(GUIWindow prev) {
     	this(1000, 600, prev);
     }
-    
+    // setter for the TableModel
     public void setTableModel(Object[][] data) {
     	String[] columnNames = { "Type", "Address", "Bedrooms", "Bathrooms", "Furnished", "City Quadrant", "Status" };
 		DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
@@ -92,7 +92,7 @@ public class LandlordPropertiesGUI extends GUIWindow{
 		properties.getTableHeader().setReorderingAllowed(false);
 		
 	}
-    
+    // setter for the FeeModel
     public void setFeeModel(String fee) {
     	feeLabel.setText(fee);
     }

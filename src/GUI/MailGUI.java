@@ -40,11 +40,11 @@ public class MailGUI extends GUIWindow {
     	this(600, 400);
     	this.prev = prev;
     }
-	
+	// setter for the subject
 	public void setSubject(String sub) {
 		subjectTF.setText(sub);
 	}
-	
+	//setter for the message
 	public void setMessage(String mes) {
 		messageTA.setText(mes);
 	}
@@ -118,19 +118,4 @@ public class MailGUI extends GUIWindow {
 		sendButton.addActionListener(this);
 
 	}
-
-//	public static void main(String[] args) {
-//  //LoginGUI frame = new LoginGUI(360, 600);
-//		DatabaseConnectivity.initializeConnection("root", "ensf480");
-//		DatabaseConnectivity.addUser(new User("admin", "admin", 0));
-//		User sender = new User("user", "user", "user@email.ca", 2), receiver = new User("landlord", "landlord", "landlord@email.ca", 1);
-//    	DatabaseConnectivity.addUser(sender);
-//    	DatabaseConnectivity.addUser(receiver);
-//		SwingUtilities.invokeLater(new Runnable() {
-//			public void run() {
-//				MailController mCon = new MailController(new MailGUI(null), sender, receiver);
-//			}
-//		});
-//  
-//	}
 }

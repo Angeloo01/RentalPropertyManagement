@@ -60,7 +60,7 @@ public class RegisteredRenterGUI extends GUIWindow {
     	this(prev);
     	this.user = user;
     }
-
+	// setter for the user
 	public void setUser(User user) {
 		this.user = user;
 	}

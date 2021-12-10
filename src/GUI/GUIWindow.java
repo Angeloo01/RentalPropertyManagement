@@ -17,11 +17,11 @@ public abstract class GUIWindow extends JFrame implements ActionListener{
 	
 	public abstract void addComponentsToContainer();
 	public abstract void addActionEvent();
-	
+	// setter for the controller 
 	public void setController (GUIController controller) {
     	this.controller = controller;
     }
-	
+	// getter for the controller
 	public GUIController getController() {
 		return controller;
 	}

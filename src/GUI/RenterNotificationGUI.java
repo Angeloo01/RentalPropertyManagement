@@ -111,11 +111,9 @@ public class RenterNotificationGUI extends GUIWindow{
     	SpringLayout layout = new SpringLayout();
 		contentPane.setLayout(layout);
     	setContentPane(contentPane);
-    	//mainPanel.add(Box.createHorizontalStrut(5));
     	
     	//search
     	JPanel searchPanel = new JPanel(new FlowLayout());
-    	//searchPanel.setMaximumSize(new Dimension(getWidth(), 100));
     	searchPanel.add(typeLabel);
     	searchPanel.add(typeList);
     	searchPanel.add(bedLabel);

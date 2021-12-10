@@ -73,9 +73,6 @@ public class MailInboxGUI extends GUIWindow {
 	public void setTableModel(Object[][] data) {
 		String[] columnNames = {"Sender", "Message"};
 		DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
-		    /**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -127,18 +124,5 @@ public class MailInboxGUI extends GUIWindow {
 		viewButton.addActionListener(this);
 
 	}
-	
-//	public static void main(String[] args) {
-//		  //LoginGUI frame = new LoginGUI(360, 600);
-//		DatabaseConnectivity.initializeConnection("root", "ensf480");
-//		DatabaseConnectivity.updateAllEntities();
-//				SwingUtilities.invokeLater(new Runnable() {
-//					public void run() {
-//						ListOfUsers.getInstance().printList();
-//						new MailInboxController(new MailInboxGUI(null), ListOfUsers.getInstance().getUserFromEmail("landlord@email.ca"));
-//					}
-//				});
-//		  
-//			}
 
 }

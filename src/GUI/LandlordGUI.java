@@ -107,15 +107,4 @@ public class LandlordGUI extends GUIWindow {
 		previousButton.addActionListener(this);
 
 	}
-	
-//	public static void main(String[] args) {
-//		  //LoginGUI frame = new LoginGUI(360, 600);
-//				SwingUtilities.invokeLater(new Runnable() {
-//					public void run() {
-//						new LandlordGUI(null);
-//					}
-//				});
-//		  
-//			}
-
 }

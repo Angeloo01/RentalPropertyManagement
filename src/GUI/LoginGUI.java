@@ -50,7 +50,7 @@ public class LoginGUI extends GUIWindow{
     	this(360, 600, prev);
     }
     
- 
+    // setter for the Layout
     public void setLayoutManager() {
         container.setLayout(null);
     }
@@ -130,7 +130,6 @@ public class LoginGUI extends GUIWindow{
                 JOptionPane.showMessageDialog(this, "Registration Successful");
             }
         	else {
-                //JOptionPane.showMessageDialog(this, "Username is taken");
             }
         }
        //Coding Part of showPassword JCheckBox
@@ -143,15 +142,7 @@ public class LoginGUI extends GUIWindow{
  
  
         }
-        
         if(e.getSource() == guestButton) {
-//        	String email = new String();
-//            while(!email.contains("@"))
-//            	email = JOptionPane.showInputDialog(this, "Enter your email:").toString();
-//            if (ListOfUsers.getInstance().getUserFromEmail(email) != null) {
-//				JOptionPane.showMessageDialog(this, "Email is taken");
-//	            return;
-//	        }
         	PropertiesModel pModel = new PropertiesModel(true, ListOfProperty.getInstance().getProperies());
         	new ViewPropertiesController (new ViewPropertiesGUI(null), pModel);
         	dispose();

@@ -53,7 +53,6 @@ public class LoginController implements GUIController{
         User newUser = new User(username, new String(password), email, selectionObject.toString().equals("Renter") ? 2 : 1);
         if(!DatabaseConnectivity.addUser(newUser))
         	return false;
-		//model.getUsers().add(newUser);
 		return true;
 	}
 
