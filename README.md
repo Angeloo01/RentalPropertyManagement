@@ -2,13 +2,22 @@
 ## Group 89 - Angelo Gonzales, Carter Fuchs, Sam Farzamfar, Rajpreet Gill
 This application provides a method of organizing real estate listings by keeping track of properties that have been posted, and allowing landlords, renters, and system managers to get all information they need.
 
+## MySQL connection
+To run the program, you need to have a MySQL connection, and source the database defined in the database.sql file.
 
-## Compiling and running the program
+## Running the program with the .jar file
+To run the program, navigate to the RentalPropertyManagement folder and run the following command:
+```
+java -jar project.jar <USERNAME> <PASSWORD>
+```
+where \<USERNAME> and \<PASSWORD> should be replaced by the username and password of your MySQL connection.
+
+## Compiling and running the program manually
 In order to compile the program, navigate to the RentalPropertyManagement folder and run the following command:
 ```
 javac -cp lib/mysql-connector-java-8.0.23.jar -sourcepath src -d build src/Main.java
 ```
-To run the program, you need to have a MySQL connection, and source the database in the database.sql file. Once you have a working MySQL connection with the rental_management database created, you can run the following command:
+Once you have a working MySQL connection with the rental_management database created, you can run the following command:
 ```
 java Main <USERNAME> <PASSWORD>
 ```
