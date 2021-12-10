@@ -80,7 +80,9 @@ public class ManagerGUI extends GUIWindow {
             }
 		}
 		else if(e.getSource() == propButton) {
-			new LandlordPropertiesController(new LandlordPropertiesGUI(this), null);
+			LandlordPropertiesGUI lpgui = new LandlordPropertiesGUI(this);
+			lpgui.removeRegisterPanel();
+			new LandlordPropertiesController(lpgui, null);
 			setVisible(false);
 		}
 		else if(e.getSource() == summButton) {
